@@ -1,0 +1,99 @@
+Create Tables that are listed in Day 5- Task Table.txt file. Use that all tables and make query for question listed in Day-5 Task Questions.txt
+
+If question contain some data for ex. "movies did by Ajay Devgan" then you must need to insert that data in respective table.
+
+Create a file that contains the syntax of the following:
+1. Table creation query
+2. Query for each question.
+
+That file will be uploaded for submission.
+
+Note: DO NOT COPY PASTE from others.
+---------------------
+DB:
+Actor
+--------
+Id 
+Firstname 
+Lastname 
+Gender 
+
+
+Director
+---------
+Id 
+Firstname 
+Lastname 
+
+
+MovisDirection
+-------------
+Id
+DirectorId 
+MovieId 
+
+	
+
+MovieCast
+--------------
+Id
+ActorId 
+MovieId 
+Role 
+
+
+Reviewer
+---------
+Id 
+Name 
+
+
+Rating
+-----------
+Id
+MovieId 
+ReviewerId 
+ReviewStars
+
+
+MovisGenres
+-----------
+id
+Genderid 
+MovisId 
+
+
+Genres
+---------
+id
+Title 
+
+
+Movie
+-----------
+Id 
+Title 
+RealeseDate 
+RealeseCountry 
+Language 
+MovieLength 
+
+
+
+------------------------------
+Que
+1) Write a query in SQL to find the name of all reviewers who have rated 3 or more stars to their rating
+2) Write a query in SQL to find the count and all details of all movies which directed by James Cameron and Realesed in 2016-04-02 - (use Inner Query)
+3) Write a query in SQL to find the count of all movies did by Ajay Devgan
+4) Write a query in SQL to find movies whose length is greater than 2 hours
+5) Write a query in SQL to display last 5 movies realese in 2019
+6) Write a query in SQL to count realesed movie in each country except the Don Movie, sort result by high to low based on movie count. (result column-> Movie Count, Country)
+7) write a query in SQL to find the cast list for the movie Bahubali. (print actor firstName and lastName)
+8) write a query to print count of all movies done by all actors. Print details for those actor who have done more than one movie 
+9) write a query to print ReviewName,ReviewStar,MovieName,RealeseDate for those movies who has been realesed in last 5 year and length of those movies greater than 1.5 hour - (print RealeseDate only in date format)
+10) Write a query in SQL to list all the actors who have not acted in any movie between 1990 and 2000.
+11) Write a query in SQL to generate a report which contain the columns movie title, name of the female actor, year of the movie, role, movie genres, the director, date of release, and rating of that movie
+12) Write a query in SQL to find the highest-rated movie, and print its title, year, rating, and releasing country.
+13) Write a query in SQL to find the first and last name of a director and the movie he or she directed, and the actress appeared which first name was "Ajay" and last name was "Devgan" along with his role in that movie.
+14) Write a query in SQL to find the movie title, actor first and last name, and the role for those movies where one or more actors acted in two or more movies.
+15) Write a query in SQL to return the reviewer name, movie title, and stars in an order that reviewer name will come first, then by movie title, and lastly by number of stars.
