@@ -1,0 +1,295 @@
+Topics:
+DDL
+CREATE – Creates objects in the database
+ALTER – Alters objects of the database
+DROP – Deletes objects of the database
+TRUNCATE – Deletes all records from a table and resets table identity to initial value.
+
+DML
+SELECT – Retrieves data from a table
+INSERT - Inserts data into a table
+UPDATE – Updates existing data into a table
+DELETE – Deletes all records from a table
+
+
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Uniquely identifies a row/record in another table
+
+NOT NULL - Ensures that a column cannot have a NULL value
+UNIQUE - Ensures that all values in a column are different
+CHECK - Ensures that all values in a column satisfies a specific condition
+DEFAULT - Sets a default value for a column when no value is specified
+INDEX - Used to create and retrieve data from the database very quickly
+
+
+Task Assignment :
+1. Use DDL and DML statement.(Make query of each)
+2. Create 3-4 tables that use Primary,Foreign keys(show relation between tables) and constraints
+
+Create a file that contains all the queries which you have executed and are properly working.
+That file will be uploaded for submission.
+
+Note: DO NOT COPY PASTE from others.
+----------------------
+SQL Commands
+These SQL commands are mainly categorized into four categories as:
+1.DDL – Data Definition Language
+2.DML – Data Manipulation Language
+
+1.DDL(Data Definition Language) : 
+DDL or Data Definition Language actually consists of the SQL commands that can be used to define the database schema. It simply deals with descriptions of the database schema and is used to create and modify the structure of database objects in the database.
+Examples of DDL commands:
+CREATE 
+DROP 
+ALTER
+TRUNCATE
+2.DML(Data Manipulation Language) : 
+The SQL commands that deals with the manipulation of data present in the database belong to DML or Data Manipulation Language and this includes most of the SQL statements.
+Examples of DML:
+SELECT
+INSERT
+UPDATE 
+DELETE 
+
+Keys
+PRIMARY KEY - A combination of a NOT NULL and UNIQUE. Uniquely identifies each row in a table
+FOREIGN KEY - Uniquely identifies a row/record in another table
+Constaint 
+NOT NULL 
+UNIQUE
+CHECK 
+DEFAULT 
+INDEX
+https://www.w3schools.com/sql/sql_constraints.asp
+--------------
+ANS
+  
+--DATABASE CREATION PRACTICE 
+CREATE DATABASE PRACTICE
+
+--TABLE CREATION 
+--1)NEWSTUDENT
+--2)COURSE
+
+--1)NEWSTUDENT
+CREATE TABLE NewStudent
+(
+StudentId INT IDENTITY(101,100) PRIMARY KEY,
+StudentName VARCHAR(100) NOT NULL,
+Email VARCHAR(100) NOT NULL,
+RollNo INT UNIQUE NOT NULL,
+DOB DATE,
+Age INT CHECK(Age >=10 AND Age <=25),
+Address VARCHAR(300),
+City VARCHAR(100),
+State VARCHAR(100),
+Country VARCHAR(100),
+PostalCode INT,
+Course VARCHAR(100),
+College VARCHAR(100),
+DateOfJoin DATETIME DEFAULT GETDATE(),
+CourseId INT FOREIGN KEY REFERENCES Course(CourseId)
+);
+
+
+DELETE NewStudent;
+SELECT * FROM NewStudent;
+TRUNCATE TABLE NewStudent;
+DROP TABLE NewStudent;
+ALTER TABLE NewStudent ALTER COLUMN Address VARCHAR(500);
+CREATE INDEX IndexNewStudent ON NewStudent(StudentId,StudentName,Email);
+
+--DATA INSERTION
+INSERT INTO NewStudent VALUES
+('sandip','sandipparmar300@gmail.com',1001,'1998-06-16',21,'213,prahlad park','ahmedabad','gujarat','india',382418,'masc it','kssbm','',1),
+('ishan','ishanjoshi123@gmail.com',2002,'1995-12-10',24,' a1 new ranip','ahmedabad','gujarat','india',321654,'bsc','gc ahmedabad','',2),
+('dhara','dharachavda123@gmail.com',3003,'1996-12-17',24,'raiyani chowk','rajkot','gujarat','india',360006,'bcom','gc rajkot','',3),
+('hardik','hardiksanghvi123@gmail.com',4004,'1995-05-05',25,'jivraj mehta park','ahmedabad','gujarat','india',382525,'mba','n.c.bodiwala','',4),
+('himanshu','hardikpranami123@gmail.com',5005,'1997-01-24',22,'ctm cross road','ahmedabad','gujarat','india',968585,'ec','hasmukbhai college','',5);
+
+
+UPDATE NewStudent SET City='udaipur',State='rajshthan' WHERE StudentId=501;
+SELECT * FROM NewStudent WHERE Country='india';
+TRUNCATE TABLE NewStudent;
+
+
+--2)COURSE
+CREATE TABLE Course
+(
+CourseId INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+CourseName VARCHAR(100),
+Type VARCHAR(100),
+Fees INT
+);
+
+SELECT * FROM Course;
+ALTER TABLE Course ADD CollegeName VARCHAR(255);
+
+
+--DATA INSERTION
+INSERT INTO Course VALUES
+('MSCIT','it',10000),
+('BSC','medical',25000),
+('BCOM','accounting',5000),
+('MBA','management',10000),
+('EC','engineering',8000);
+
+DROP TABLE Course;
+SELECT * FROM Course;
+DELETE FROM Course WHERE CourseId=6;
+UPDATE Course SET CollegeName = 'n.c.bodiwala' WHERE CourseId=1;
+UPDATE Course SET CollegeName = 'KSSBM' WHERE CourseId=2;
+UPDATE Course SET CollegeName = 'BKSBM' WHERE CourseId=3;
+UPDATE Course SET CollegeName = 'ROLLWALA' WHERE CourseId=4;
+UPDATE Course SET CollegeName = 'K.K.SHASTRY' WHERE CourseId=5;
+
+
+
+--ANOTHER TABLE REALATION
+--TABLE INCLUDES
+--1)USERS
+--2)BOOKS
+--3)REVIEWS
+--4)CHECKOUTS
+--5)ADDRESS
+
+
+
+--1)USERS
+CREATE TABLE Users
+(
+UserId INT PRIMARY KEY NOT NULL,
+Name VARCHAR(100),
+Enabled TINYINT,--IF ENABLED 1 ELSE 0
+LastLogin DATETIME DEFAULT GETDATE()
+);
+
+SELECT * FROM Users;
+
+
+
+
+--DATA INSERTION
+INSERT INTO Users VALUES
+(1,'sandip',1,''),
+(2,'dhara',0,''),
+(3,'bijal',1,''),
+(5,'kabir',0,''),
+(8,'kalpana',1,'');
+
+SELECT * FROM Users;
+CREATE INDEX IndexUsers on Users (UserId,Name);
+SELECT * FROM Users WHERE Enabled=1;
+SELECT * FROM Users WHERE Enabled=0;
+SELECT COUNT(Name) FROM Users;
+SELECT MIN(Enabled) FROM Users;
+
+--2)BOOKS
+CREATE TABLE Books
+(
+BookId INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+Title VARCHAR(100),
+Author VARCHAR(100),
+PublishedDate DATE,
+ISBN INT
+);
+
+SELECT * FROM Books;
+
+
+
+--DATA INSERTION
+INSERT INTO Books VALUES
+('SATYANA PRAYOGO','GANDHIJI','1935-05-05',1234),
+('GEETAJALI','RAVINDRANATH TAGOR','1967-10-10',12345),
+('RAMAYAN','VALMIKI','0001-01-01',123456),
+('KOLAHAL','SANJAY','1990-04-12',1234567),
+('SUVASH','SANDIP','2010-04-02',12345678);
+
+SELECT * FROM Books;
+CREATE INDEX IndexBooks on Books(BookId,Title,ISBN);
+
+--3)REVIEWS
+CREATE TABLE Reviews
+(
+ReviewId INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+BookId INT FOREIGN KEY REFERENCES Books(BookId),
+ReviewerName VARCHAR(100),
+Content VARCHAR(250),
+Rating TINYINT CHECK(Rating >=1 AND Rating <=5),
+PublishedDate DATE
+);
+
+SELECT * FROM Reviews;
+
+
+--DATA INSERTION
+INSERT INTO Reviews VALUES
+(1,'ISHAN','good',1,'1967-10-10'),
+(2,'MAULIK','wow',2,'1990-04-12'),
+(3,'RAHUL','amazing',5,'0001-01-01'),
+(4,'GAURAV','not good',3,'2010-04-02'),
+(5,'ANJALI','better',5,'1935-05-05');
+
+SELECT * FROM Reviews;
+SELECT * FROM Reviews WHERE Content='good';
+SELECT * FROM Reviews WHERE Rating=5;
+DELETE FROM Reviews WHERE ReviewId=1;
+UPDATE Reviews SET Rating=5 WHERE ReviewId=2;
+SELECT COUNT(Rating) FROM Reviews;
+SELECT MIN(Rating) FROM Reviews;
+SELECT MAX(Rating) FROM Reviews;
+SELECT SUM(Rating) FROM Reviews;
+
+--4)CHECKOUTS
+CREATE TABLE Checkouts
+(
+CheckoutId INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+UserId INT FOREIGN KEY REFERENCES Users(UserId),
+BookId INT FOREIGN KEY REFERENCES Books(BookId),
+CheckoutDate DATETIME NOT NULL,
+ReturnDate DATE
+);
+
+SELECT * FROM Checkouts;
+
+
+--DATA INSERTION
+INSERT INTO Checkouts VALUES
+(1,1,'2020-01-02',''),
+(2,2,'2019-01-05',''),
+(3,3,'2018-10-18','2019-01-15'),
+(5,4,'2017-09-30','2018-05-19'),
+(8,5,'2020-01-10','');
+
+
+SELECT * FROM Checkouts;
+SELECT * FROM Checkouts WHERE ReturnDate='';
+
+--5)ADDRESS
+CREATE TABLE Address
+(
+Id  INT PRIMARY KEY NOT NULL IDENTITY(1,1),
+UserId INT FOREIGN KEY REFERENCES Users(UserId),
+Street VARCHAR(100) NOT NULL,
+City VARCHAR(100) NOT NULL,
+State VARCHAR(100) NOT NULL,
+);
+
+SELECT * FROM Address;
+TRUNCATE TABLE Address;
+
+--DATA INSERTION
+INSERT INTO Address VALUES
+(1,'satelite','ahmedabad','gujarat'),
+(2,'jivraj','ahmedabad','gujarat'),
+(3,'paldi','ahmedabad','gujarat'),
+(5,'vasna','ahmedabad','gujarat'),
+(8,'kankariya','ahmedabad','gujarat');
+
+SELECT * FROM Address;
+SELECT userid,city FROM Address WHERE city='ahmedabad';
+SELECT userid,street,city FROM Address WHERE state='gujarat';
+UPDATE Address SET City='udaiypur',state='rajshthan' WHERE UserId=3;
+UPDATE Address SET City='mumbai',state='maharstra' WHERE UserId=5;
+DELETE FROM Address WHERE id=5;
