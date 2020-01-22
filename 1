@@ -1,0 +1,329 @@
+Topics :
+SQL data types
+Create table
+Insert data in table
+
+Task Assignment :
+Create 3-4 different table that covers all data types and Insert data in that. (minimum 6-7 column per table)
+
+Create a file that contains the syntax of the following:
+1. Table Creation Query
+2. Insert Query
+
+That file will be uploaded for submission.
+
+Note: DO NOT COPY PASTE from others.
+--------------------------
+SQL DataTypes:
+SQL Data Types
+String data types:
+char(n)	
+Fixed width character string	
+8,000 characters	
+
+varchar(n)	
+Variable width character string	
+8,000 characters	
+
+varchar(max)	
+Variable width character string	
+1,073,741,824 characters	
+
+text	
+Variable width character string	
+2GB of text data	
+
+nchar	
+Fixed width Unicode string	4,000 characters	
+nvarchar	Variable width Unicode string	
+4,000 characters	 
+
+nvarchar(max)	
+Variable width Unicode string	
+536,870,912 characters	 
+
+ntext	
+Variable width Unicode string	
+2GB of text data
+
+image	
+Variable width binary string	
+2GB
+
+money
+Range -922,337,203,685,477.5808 to 922,337,203,685,477.5807 and Storage 8 Bytes
+
+smallmoney
+Range - 214,748.3648 to 214,748.3647 and Storage 4 Bytes
+
+Numeric data types
+bit	
+Integer that can be 0, 1, or NULL
+	 
+tinyint	
+Allows whole numbers from 0 to 255	
+1 byte
+
+smallint	
+Allows whole numbers between -32,768 and 32,767	
+2 bytes
+
+int	
+Allows whole numbers between -2,147,483,648 and 2,147,483,647	
+4 bytes
+
+bigint	
+Allows whole numbers between -9,223,372,036,854,775,808 and 9,223,372,036,854,775,807	
+8 bytes
+
+decimal(p,s)	
+Fixed precision and scale numbers.
+Allows numbers from -10^38 +1 to 10^38 –1.
+The p parameter indicates the maximum total number of digits that can be stored (both to the left and to the right of the decimal point). p must be a value from 1 to 38. Default is 18.
+The s parameter indicates the maximum number of digits stored to the right of the decimal point. s must be a value from 0 to p. Default value is 0
+5-17 bytes
+
+numeric(p,s)	
+Fixed precision and scale numbers.
+Allows numbers from -10^38 +1 to 10^38 –1.
+The p parameter indicates the maximum total number of digits that can be stored (both to the left and to the right of the decimal point). p must be a value from 1 to 38. Default is 18.
+The s parameter indicates the maximum number of digits stored to the right of the decimal point. s must be a value from 0 to p. Default value is 0
+
+float / real
+Approximate-number data types for use with floating point numeric data. Floating point data is approximate; therefore, not all values in the data type range can be represented exactly
+
+Date and Time data types
+datetime	
+From January 1, 1753 to December 31, 9999 with an accuracy of 3.33 milliseconds	
+8 bytes
+
+datetime2	
+From January 1, 0001 to December 31, 9999 with an accuracy of 100 nanoseconds	
+6-8 bytes
+
+smalldatetime	
+From January 1, 1900 to June 6, 2079 with an accuracy of 1 minute	
+4 bytes
+
+date	
+Store a date only. From January 1, 0001 to December 31, 9999	
+3 bytes
+
+time	
+Store a time only to an accuracy of 100 nanoseconds	
+3-5 bytes
+
+datetimeoffset	
+The same as datetime2 with the addition of a time zone offset	
+8-10 bytes
+
+timestamp	
+Stores a unique number that gets updated every time a row gets created or modified. The timestamp value is based upon an internal clock and does not correspond to real time. 
+Each table may have only one timestamp variable
+
+Other data types
+uniqueidentifier	
+Stores a globally unique identifier (GUID)
+
+xml	
+Stores XML formatted data. Maximum 2GB
+
+Create Table
+Insert Data in table
+
+https://www.tutorialspoint.com/sql/sql-data-types.htm
+------------------
+Ans
+
+--Database sql_task1
+CREATE DATABASE sql_task1
+
+
+--1) Student_table
+CREATE TABLE Student_table (
+Id INT IDENTITY(1,1),
+Name VARCHAR(100),
+Roll_no INT,
+Email VARCHAR(100),
+Address VARCHAR(250),
+City VARCHAR(50),
+State VARCHAR(50),
+Course VARCHAR(100),
+College VARCHAR(100),
+Date_of_Join date,
+Course_year tinyint,
+Contact_no VARCHAR(15));
+
+SELECT * FROM Student_table;
+
+
+--2) Customer_table
+CREATE TABLE Customer_table (
+Cust_id INT IDENTITY(1,1),
+F_name VARCHAR(50),
+M_name VARCHAR(50),
+L_name VARCHAR(50),
+Email VARCHAR(100),
+Address VARCHAR(250),
+City VARCHAR(50),
+State VARCHAR(50),
+Contact VARCHAR(50),
+Pincode INT,
+Sales_company VARCHAR(100),
+Order_date DATE,
+Product_id INT,
+Invoice_id INT,
+Qty TINYINT,
+Unit_price FLOAT,
+Discount DECIMAL
+);
+
+SELECT * FROM Customer_table;
+
+
+--3) Employee_task table
+CREATE TABLE Employee_task(
+Emp_id INT,
+Emp_name VARCHAR(100),
+Task_id SMALLINT,
+Task_title VARCHAR(100),
+Type VARCHAR(50),
+Desciption VARCHAR(250),
+Start_date DATETIME,
+End_date DATETIME2,
+Status CHAR(50),
+Approval_status CHAR(50),
+Task_priority TINYINT
+);
+
+SELECT * FROM Employee_task;
+
+
+--4) Training_schedule table
+CREATE TABLE Training_schedule(
+Id	INT IDENTITY(1,1),
+Course VARCHAR(100),
+Total_days TINYINT,
+Description VARCHAR(100),
+Created_by VARCHAR(50),
+Created_Date Date,
+Action VARCHAR(100)
+);
+
+SELECT * FROM Training_schedule;
+
+
+--5) Leaves table
+CREATE TABLE leaves(
+Id Int IDENTITY(1,1) PRIMARY KEY,
+Request_by VARCHAR(100),
+Date DATE,
+No_of_days TINYINT,
+Reason VARCHAR(100),
+Status VARCHAR(50),
+Manager VARCHAR(100),
+Admin_hr_approved VARCHAR(50),
+Created_on DATETIME2,
+Action VARCHAR(50)
+);
+ 
+SELECT * FROM leaves;
+
+
+--6) Bank_account table
+CREATE TABLE Bank_account(
+Id INT IDENTITY(1,100) PRIMARY KEY,
+Bank_name VARCHAR(100),
+Bank_code VARCHAR(100),
+Country_code VARCHAR(100),
+Currency_code CHAR(100),
+Status BIT, --0 FOR NOT-ACTIVE AND 1 FOR ACTIVE
+Bramch_name VARCHAR(100),
+Account_type TEXT,
+Account_number BIGINT, 
+Username VARCHAR(100),
+User_address VARCHAR(250),
+Contact_no VARCHAR(15),
+Minimun_balance	SMALLMONEY,
+Current_balance MONEY,
+Loan_status BIT, --0 FOR NOT-ACTIVE AND 1 FOR ACTIVE
+Interest FLOAT
+);
+
+SELECT * FROM Bank_account;
+Go
+----------------------
+
+--1) student_table
+INSERT INTO Student_table VALUES(
+'sandip',101,'sandipparmar300@gmail.com','213, prahlad park','ahmedabad','gujrat','msc(ca & it)','kssbm','2015-06-01',5,'9601781747'),
+('ishan',5126,'ishan123@gmail.com','1, maninagar','ahmedabad','gujarat','BE','government college','2010-06-01',3,'90331039686'),
+('bijal',1001,'bijal@abc.com','krish-2 society','surat','gujarat','bcom','n c bodiwala','2005-07-15',3,'+91 9157912912'),
+('kuldeep',123,'kuldeep159@yahoo.com','g1, film-city','mumbai','maharastra','d-pharm','m k gandhi','2017-08-19',2,'8157304045'),
+('bhaumit',5007,'bhaumit@gmail.com','2 hanuman-gali','udaipur','rajsthan','m.com','g c shah','2010-06-15',5,'+91 8866282978');
+
+SELECT * FROM Student_table;
+
+
+--2) customer_table
+INSERT INTO Customer_table VALUES(
+'sandip','sanjaybhai','parmar','sandipparmar300@gmail.com','213, prahlad park','ahmedabad','gujarat','+91 9601781747',382418,'amazon','2015-06-01',101,12345,5,5000.50,5.5),
+('bijal','bhaumit','panchal','bijal@abc.com','krish-2 society','surat','gujarat','+91 9157912912',380006,'flipkart','2010-06-01',105,56789,20,11500.50,2.40),
+('kalpana','sanjaybhai','panchal','kalpana@123.com','a1, raghuvir society','rajkot','gujrat','7777858066',382478,'purple.com','2005-07-15',3212,66666,5,5000,0.5),
+('kuldeep','devendrabhai','pitroda','kuldeep159@yahoo.com','g1, film-city','mumbai','maharastra','8157304045',987456,'firstcry.com','2017-08-19',1234,234234,4,11120,5.0),
+('bhaumit','kanubhai','pachal','bhaumit@gmail.com','2 hanuman-gali','udaipur','rajsthan','+91 8866282978',987789,'myntra','2010-06-15',222,112233,4,50500,0.50);
+
+SELECT * FROM Customer_table;
+
+
+--3) Employee_task table
+INSERT INTO Employee_task VALUES(
+1,'sandip',101,'designing','development','Task 3 point 2 (form task) program performing','2020-01-01','2010-01-01','completed','pending',1),
+(2,'bhaumit',202,'testing','review','review the bugs in the programme','2019-10-15','2010-01-10','pending','pending',2),
+(3,'ishan',303,'coding','development','Task 3 point 1 (table task) program performing','2019-12-12','2019-12-31','inprogress','completed',1),
+(4,'himanshu',444,'designing','development','	i do the task of html coding and upload to the classroom.','2020-01-01','','pending','pending',3),
+(5,'hardik',123,'coding','analysis','Training session given by the vaishali madam','2020-01-01','2020-01-10','completed','inprogress',1);
+
+SELECT * FROM Employee_task;
+
+
+--4) Training_schedule table
+INSERT INTO Training_schedule VALUES(
+'Android',4,'Training on Android','Pratikbhai Satani','2019-02-27','yes'),
+('Angular',9,'Training on Angular','Savan Kharadi',	'2019-02-27','yes'),	
+('Basic HTML/CSS',3,'Course based on Basic HTML and CSS','Mehul Gohel','2019-02-27','yes'),
+('C#',8,'Training on C#','Mehul Gohel','2019-02-27','no'),
+('JAVASCRIPT & JQUERY',9,'Training based on JAVASCRIPT & JQUERY','Mehul Gohel','2019-02-27','no'),	
+('MVC',9,'Training course on MVC','Mehul Gohel','2019-02-27','no'),
+('PHP',15,'Training on PHP','Mehul Gohel','2019-02-27','yes'),	
+('ReactJS',0,'Training On ReactJS','Savan Kharadi','2019-02-27','yes'),
+('SQL',8,'Training on SQL','Mehul Gohel','2019-02-27','yes');
+
+SELECT * FROM Training_schedule;
+
+
+--5) Leaves table
+INSERT INTO leaves VALUES(
+'sandip parmar','2020-02-25',2,'for the attend the merriege function of brother','pending','miloni mehta','appproved','2020-02-01','yes'),
+('ishan joshi','2020-03-05',5,'for my merriege','pending','malik sakir','approved','2020-02-05','yes'),
+('himanshu pranami','2020-1-13',3,'for the kite festival celebration','pending','malik sakir','pending','2020-01-10','no'),
+('dhara chavda','2020-1-12',4,'for i want going my home tow foe the celebrate uttrayan','pending','miloni mehta','approved','2020-01-01','yes'),
+('hardik raval','2020-1-25',3,'for clebrate the repulic day with the army','pending','miloni mehta','approved','2020-01-10','yes');
+
+SELECT * FROM leaves;
+
+
+--6) Bank_account table
+INSERT INTO Bank_account VALUES(
+'Bank of baroda','bob123','IND','rup123',0,'vastral','saving',52070147852123,'sandip parmar','ahmedabad','9601781747',1000,999999999,0,7.8),
+('Bank of india','boi123','IND','rup123',1,'vasna','current',09501278457441,'ishan joshi','surat','9033107894',1000,88888888,0,7.35),
+('State bank of india','sbi123','IND','rup123',0,'vasai','saving',10203040506070,'dhara chavda','vadodara','7785451296',1000,7777777,1,5.65),
+('Union Bank of india','ubi123','IND','rup123',1,'vastrapur','current',80904050102030,'himanshu pranami','rajkot','9157456456',1000,666666,1,3.99),
+('Axis Bank','abi123','IND','rup123',1,'varansi','business',11122233345678,'hardik sanghvi','jamnagar','7894561230',1000,55555,1,6.696),
+('Bank of baroda','bob123','IND','rup123',0,'vastral','saving',52070147855555,'kalpana parmar','jamnagar','123456789',1000,4444,0,7.8),
+('Bank of india','boi123','IND','rup123',1,'vasna','current',09501278455555,'ram suryavansi','surat','9033778899',1000,3333333,0,4.44),
+('State bank of india','sbi123','IND','rup123',0,'vasai','saving',1020304000000,'kajol makvana','vadodara','7785868788',1000,2222222,0,4.65),
+('Union Bank of india','ubi123','IND','rup123',1,'vastrapur','current',80904050777777,'krish cowpar','ahmedabad','9157887745',1000,555555,1,5.99),
+('Axis Bank','abi123','IND','rup123',1,'varansi','business',11122233344444,'kabir singh','jamnagar','7894898985',1000,1111111,0,6.66);
+
+SELECT * FROM Bank_account;
