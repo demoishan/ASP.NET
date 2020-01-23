@@ -1,0 +1,87 @@
+  
+  
+  
+--proc_Customer_SupportReport '18',11,NULL,NULL,1,10000,0,0  
+CREATE PROCEDURE [dbo].[proc_Customer_SupportReport] (  
+  @TenantId NVARCHAR(MAX)=''  
+ ,@SortOrder INT = 11  
+ ,@FromDate DATETIME = NULL  
+ ,@ToDate DATETIME = NULL  
+ ,@PageNumber INT = 1  
+ ,@PageSize INT = 10  
+ ,@PrimaryCallReasonId INT = 0  
+ ,@SecondaryCallReasonId INT=0  
+ ,@TotalRecords INT = 0 OUTPUT  
+ )  
+AS  
+SET NOCOUNT ON  
+  
+IF @ToDate IS NOT NULL  
+ SET @ToDate = dateadd(ss,-1,dateadd(day,1,@ToDate))  
+  
+DECLARE @intStart INT  
+ ,@intEnd INT  
+  
+SET @intStart = ((@PageNumber - 1) * @PageSize) + 1  
+SET @intEnd = @intStart + @PageSize - 1  
+  
+DECLARE @Temp AS TABLE (DisID INT identity,NotesId int,CustomerId INT )  
+  
+INSERT INTO @Temp (NotesId,CustomerId)  
+SELECT    
+ N.NotesId,C.CustomerId  
+FROM   
+ dbo.ufn_Split(@TenantId,',') T  
+INNER JOIN Notes N ON N.TenantID = T.Value  
+LEFT JOIN [Order] O ON O.OrderId=(CASE WHEN N.EntityType=12 THEN N.EntityId ELSE NULL END)  
+INNER JOIN Customers C ON C.CustomerId=(CASE WHEN N.EntityType=2 THEN N.EntityId WHEN N.EntityType=12 THEN O.CustomerId ELSE NULL END)  
+WHERE ISNULL(N.EntityType,0) IN (2,12)  
+AND (  
+  @FromDate IS NULL  
+  OR N.CreatedOn BETWEEN @FromDate  
+   AND @ToDate  
+ )  
+AND (  
+  @PrimaryCallReasonId = 0  
+  OR N.PrimaryCallReasonId = @PrimaryCallReasonId  
+  )  
+AND (  
+  @SecondaryCallReasonId = 0  
+  OR N.SecondaryCallReasonId = @SecondaryCallReasonId  
+  )  
+AND N.IsDelete=0  
+--AND N.PrimaryCallReasonId IS NOT NULL  
+AND CASE WHEN N.EntityType=2 THEN  ISNULL(N.PrimaryCallReasonId,0) ELSE 1 END >0  
+ORDER BY N.CreatedOn ASC  
+  
+  
+SELECT @TotalRecords = COUNT(*) FROM @Temp  
+  
+ SELECT ISNULL(C.FirstName,'')+' '+ISNULL(C.LastName,'')  AS RegistrantName  
+  ,C.Email AS RegistrantEmail  
+  ,N.PrimaryCallReasonId AS CallReasonMain  
+  ,N.SecondaryCallReasonId AS CallReasonSecondaryReason  
+  --,N.[Description] AS CallNotes   
+  ,REPLACE(N.[Description], CHAR(10),'<br/>') as CallNotes  
+  ,N.CreatedBy  AS NoteCreatedBy  
+  ,(CASE WHEN LEN(C.OfficePhone)>0 THEN C.OfficePhone WHEN LEN(C.Mobile)>0 THEN C.Mobile ELSE C.HomePhone END) AS CustomerPhone  
+  ,N.CreatedOn AS NoteDateTime  
+  ,N.TenantId AS TenantName   
+ FROM   
+  @Temp T  
+ INNER JOIN Notes N ON T.NotesId=N.NotesId  
+ INNER JOIN Customers C ON C.CustomerId=CASE WHEN N.EntityType=2 THEN N.EntityId ELSE T.CustomerID END  
+WHERE T.DisID >= @intStart AND T.DisID <= @intEnd  
+ORDER BY DisID
+
+-------OUTER APPLY (                    
+		 SELECT (                   
+		   SUBSTRING((                    
+			 SELECT (',' + ISNULL(st.name, ''))             
+			 FROM TicketTags tt                    
+				INNER JOIN SupportTags st ON tt.SupportTagId = st.SupportTagId     
+				WHERE tt.TicketId = ticket.TicketId                
+				FOR XML PATH('')                    
+			), 2, 10000)     
+		   ) AS TicketsTag                    
+		 ) AS TicketTags 
