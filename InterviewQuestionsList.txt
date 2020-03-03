@@ -1,0 +1,100 @@
+What is cross site scripting (XSS) attacks?
+RenderBody RenderPage?
+RenderPartial,RenderAction, Partial and Action
+What is Remote Validation?
+
+C#
+Difference:
+-Session and Cookies?
+-String and StringBuffer?
+-Array and ArrayList
+-Array list and Hash table
+-Structure and Union? or structure and class?
+-Server.Transfer and Response.Redirect
+-Abstract and Interface
+-Data set and Data Reader
+-WCF and Web service and WebAPI
+-Appsetting and Conncection String
+-Ref and Out 
+-tostring() and covert.tostring() ?
+-constants, read-only and, static?
+-throw and throw ex
+-IEnumerable and IQueryable?
+-Enumerable vs Collection vs List
+-Is and As
+What is Delegates?Types?
+What is Events?
+What is Language Integrated Query (LINQ)
+What is Sealed Class in C#?
+What is boxing and unboxing ?
+What is value type and reference type?
+What Partial class?
+What are generics in C#? //https://www.c-sharpcorner.com/UploadFile/84c85b/using-generics-with-C-Sharp/
+What is IL code, CLR, CTS, GAC & GC?//https://www.geeksforgeeks.org/common-language-runtime-clr-in-c-sharp/
+What is the difference between Virtual method and Abstract method?
+What is the difference between dynamic type variables and object type variables?
+What is deep or shallow copy concept in C#?
+What Are Access Modifiers In C#
+How to stop inherintace in c#
+What is the use of 'using' statement in C#?
+What are extension methods in C#?
+What is the difference between the dispose and finalize methods in C#?
+What is the Constructor Chaining in C#?
+Give a brief explanation on Thread Pooling in C#
+What do you mean by Constructor Chaining in C#?
+
+MVC page life cygle and working
+
+SQL
+Difference:
+-Unioun and Unioun All
+-Stored Procedure and Function
+-nvarchar and varchar
+-Truncate,Delete and Drop
+-Primary key and Unique key
+-temp table vs temp variable
+-RANK() and DENSE_RANK()
+-WHERE and HAVING
+What are the different types of indexes?
+Different between cluster index and non clusete index?
+What is trigger and different types of Triggers?
+What is Cursor?
+What are Advantages of Stored Procedures?
+What is a join?types?
+What is Self-Join and Cross-Join?
+What are Constraints in SQL?
+What are all types of user defined functions?
+What is CTE?
+What is Primary Key,Foreign Key
+What are aggregate and scalar functions?
+What are SQL Injections? And How to Prevent SQL Injection Attacks?
+Locks in sql-interview-questions.
+What is ACID?
+Offset fetch
+What is set Nocount ON?
+
+OPPS
+What is OOPS & Principal?
+What is Inheritance,Abstract
+What are type of inherence?
+What is polymorphicm? Type Of polymorphicm in c#
+What is Polymorphism, overloading, overriding and virtual?
+What is different difference between compile time polymorphism and runtime polymorphism
+What is different between overloading and overriding
+(Early Binding or Overloading & Late Binding or Overriding)
+What is diffrent btween interface and inherintace
+What is normalisation? dinomaization?
+
+CSS
+types of css
+Difference between HTML and HTML5:
+
+Useful links
+https://www.guru99.com/c-sharp-interview-questions.html
+https://www.c-sharpcorner.com/UploadFile/puranindia/C-Sharp-interview-questions/
+https://www.softwaretestinghelp.com/c-sharp-interview-questions/
+
+https://www.guru99.com/sql-interview-questions-answers.html
+https://www.interviewbit.com/sql-interview-questions/
+https://www.edureka.co/blog/interview-questions/sql-interview-questions
+https://www.toptal.com/sql/interview-questions
