@@ -16,6 +16,7 @@ Difference:
 -IEnumerable and IQueryable?
 -Enumerable vs Collection vs List
 -Is and As
+-continue and break
 What is Language Integrated Query (LINQ)?
 What is Sealed Class in C#?
 What is value type and reference type?
@@ -94,6 +95,7 @@ Difference between HTML and HTML5:
 JQ:
 difference between async and defer
 difference between == and ===
+difference between document ready and window load
 
 Useful GitHub links:
 https://github.com/NilavPatel/
