@@ -43,8 +43,17 @@ RenderPartial,RenderAction, Partial and Action
 What is Remote Validation?
 MVC page life cygle and working
 What does the "volatile" keyword in C# mean?
-SOLID Principles In C#
-design patterns c#
+SOLID Principles In C#?
+design patterns C#?
+What is Hashset in C#?
+How interface is diffrent then class apart from the use of multiple inheritance?
+Tools for code review in C#?
+Can I Create a method with same name in base class with diffrent signature.Do I need to do anything 
+Can function return multiple values in C#?
+What is dynamic type?
+What is internal class in C#?
+Reflector in C#
+Singleton?
 
 SQL:
 Difference:
@@ -73,6 +82,10 @@ What are the type of locks ?
 What is ACID?
 Offset fetch
 What is set Nocount ON?
+SQL query execution order
+Improve performance of SQL
+To display data what will you do to bring milliouncs of data in SQL database table
+Execution plan in SQL
 
 OPPS:
 What is OOPS & Principal?
@@ -100,12 +113,15 @@ difference between document ready and window load
 Useful GitHub links:
 https://github.com/NilavPatel/
 https://github.com/veliyat
+https://github.com/cornflourblue   //For Angular and react - jasonwatmore.com
 
 C#
 https://www.guru99.com/c-sharp-interview-questions.html
 https://www.c-sharpcorner.com/UploadFile/puranindia/C-Sharp-interview-questions/
 https://www.softwaretestinghelp.com/c-sharp-interview-questions/
 https://stackoverflow.com/questions/365489/questions-every-good-net-developer-should-be-able-to-answer
+
+https://dotnettutorials.net/lesson/token-based-authentication-web-api/ //Authorise
 
 SQL:
 https://www.guru99.com/sql-interview-questions-answers.html
@@ -124,6 +140,10 @@ https://scrimba.com/c/cNq8MzCr
 https://pusher.com/tutorials/consume-restful-api-react
 https://github.com/fisayoafolayan/consuming-restful-api-in-react/blob/master/src/App.js
 https://www.botreetechnologies.com/blog/react-with-redux-step-by-step-with-tasky-app
+
+https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f
+https://jasonwatmore.com/post/2018/09/11/react-basic-http-authentication-tutorial-example
+
 
 //Extra
 https://github.com/csotomon/Angular2-AdminLTE/pulls
