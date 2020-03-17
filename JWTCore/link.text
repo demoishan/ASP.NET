@@ -1,0 +1,11 @@
+//HELP Full links
+
+https://auth0.com/blog/securing-asp-dot-net-core-2-applications-with-jwts/
+
+https://www.codeproject.com/Articles/5160941/ASP-NET-CORE-Token-Authentication-and-Authorizatio  
+https://medium.com/@hidayatarg/asp-net-core-jwt-authentication-middleware-reading-a-jwt-14cdb32e39ca    //Apply Middleware
+https://fullstackmark.com/post/19/jwt-authentication-flow-with-refresh-tokens-in-aspnet-core-web-api
+https://jasonwatmore.com/post/2019/10/16/aspnet-core-3-role-based-authorization-tutorial-with-example-api
+https://github.com/cornflourblue
+https://github.com/mohsin91/NetCore2JWTRoleBasedAuth
+https://medium.com/@hbhhathorn/authorize-with-jwt-in-asp-net-core-3-0-web-api-542d7a10e8f5
