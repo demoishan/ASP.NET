@@ -1,0 +1,88 @@
+﻿@model JalaramTravels.ViewModel.HamaliVM
+
+@{
+    ViewBag.Title = "Hamali";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Hamali <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("CreatePost", "Hamali", FormMethod.Post, new { @id = "frmHamali", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>Hamali</legend>
+                            @Html.HiddenFor(m => m.ID, new { @id = "DamrageID" })
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Hamali Amount</label>
+
+                                @Html.TextBoxFor(m => m.Hamali, new
+                           {
+                               @id = "Hamali",
+                               @class = "form-control",
+                               maxlength = "5",
+                               @data_validation = "number required",
+                               @data_validation_allowing = "range[0;99999]",
+                               @onkeypress = "isNumeric(this)",
+                               @onchange = "isNumeric(this)",
+                               @placeholder = "Hamali"
+                           })
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary m-r-5 btnM22">Submit</button>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#frmHamali").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmHamali').isValid())
+                return;
+            var HamaliVM = {};
+            HamaliVM.Hamali =$('#Hamali').val();
+
+            $.ajax({
+                url: '/Hamali/CreatePost',
+                dataType: 'json',
+                data: { "HamaliVM": HamaliVM },
+                type: 'POST',
+                success: function (resp) {
+                    window.location.href = '/Hamali/';
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+    </script>
+
+}

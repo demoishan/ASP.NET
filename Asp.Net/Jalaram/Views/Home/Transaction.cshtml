@@ -1,0 +1,703 @@
+﻿@model JalaramTravels.ViewModel.TransactionVM
+
+@{
+    ViewBag.Title = "Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Transaction <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("TransactionPost", "Home", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>Transaction</legend>
+                            @Html.HiddenFor(m => Model.TransactionDetailID, new { @id = "TransactionDetailID" })
+                            @Html.HiddenFor(m => Model.TransactionMasterID, new { @id = "TransactionMasterID" })
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Bus</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.BusID, Model.BusList, "-- Select Bus --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlBus" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">L.R. No</label>
+
+                                        @Html.TextBoxFor(m => Model.LRNo, new
+                                   {
+                                       @id = "LRNo",
+                                       @class = "form-control",
+                                       maxlength = "20",
+                                       @data_validation = "required",
+                                       @placeholder = "L.R. No"
+                                   })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">No Of Parcel</label>
+
+                                        @Html.TextBoxFor(m => Model.NoOfParcel, new
+                                   {
+                                       @id = "NoOfParcel",
+                                       @class = "form-control",
+                                       maxlength = "3",
+                                       @data_validation = "number required",
+                                       @data_validation_allowing = "range[0;999]",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                       @placeholder = "No Of Parcel"
+                                   })
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Transaction Date</label>
+                                        @{
+                                            var tDate = Model.TransactionDate.HasValue ?
+                                                Model.TransactionDate.Value.ToString("dd/MM/yyyy") : null;
+                                        }
+                                        @Html.TextBoxFor(m => @tDate, new
+                                   {
+                                       @id = "TransactionDate",
+                                       @class = "form-control datepicker1",
+                                       @data_validation = "required",
+                                       @placeholder = "Transaction Date"
+                                   })
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row autoFinder">
+
+
+                                @Html.HiddenFor(m => Model.SenderID, new { @id = "SenderID", @class = "CID" })
+                                @*@Html.HiddenFor(m => Model.SenderCityID, new { @id = "SenderCityID" })*@
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">From Customer</label>
+
+                                        @Html.TextBoxFor(m => Model.SenderName, new
+                                   {
+                                       @id = "SenderName",
+                                       @class = "form-control CName",
+                                       maxlength = "20",
+                                       @data_validation = "required",
+                                       @placeholder = "From Customer"
+                                   })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">From Number</label>
+
+                                        @Html.TextBoxFor(m => Model.SenderNumber, new
+                                   {
+                                       @id = "SenderNumber",
+                                       @class = "form-control CNumber",
+                                       maxlength = "10",
+                                       @data_validation = "number required",
+                                       @placeholder = "From Number",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                   })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label ">From City</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.SenderCityID, Model.SenderCityList, "-- Select City --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlSenderCity" })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row autoFinder">
+                                @Html.HiddenFor(m => Model.ReceiverID, new { @id = "ReceiverID", @class = "CID" })
+                                @*@Html.HiddenFor(m => Model.ReceiverCityID, new { @id = "ReceiverCityID" })*@
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">To Customer</label>
+
+                                        @Html.TextBoxFor(m => Model.ReceiverName, new
+                                   {
+                                       @id = "ReceiverName",
+                                       @class = "form-control CName",
+                                       maxlength = "20",
+                                       @data_validation = "required",
+                                       @placeholder = "To Customer"
+                                   })
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">To Number</label>
+
+                                        @Html.TextBoxFor(m => Model.ReceiverNumber, new
+                                   {
+                                       @id = "ReceiverNumber",
+                                       @class = "form-control CNumber",
+                                       maxlength = "10",
+                                       @data_validation = "number required",
+                                       @placeholder = "To Number",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                   })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label ">To City</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.ReceiverCityID, Model.ReceiverCityList, "-- Select City --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlReceiverCity" })
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">PayType</label>
+                                        @Html.EnumDropDownListFor(
+  x => Model.PayType,
+  "Select PayType",
+  new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Amount</label>
+
+                                        @Html.TextBoxFor(m => Model.Amount, new
+                                   {
+                                       @id = "Amount",
+                                       @class = "form-control",
+                                       maxlength = "5",
+                                       @data_validation = "number required",
+                                       @data_validation_allowing = "range[0;99999]",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                       @placeholder = "Amount"
+                                   })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Hamali</label>
+
+                                        @Html.TextBoxFor(m => Model.Hamali, new
+                                   {
+                                       @id = "Hamali",
+                                       @class = "form-control",
+                                       maxlength = "5",
+                                       @data_validation = "number required",
+                                       @data_validation_allowing = "range[0;99999]",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                       @placeholder = "Hamali"
+                                   })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Damrage</label>
+
+                                        @Html.TextBoxFor(m => Model.Damrage, new
+                                   {
+                                       @id = "Damrage",
+                                       @class = "form-control",
+                                       maxlength = "5",
+                                       @data_validation = "number required",
+                                       @data_validation_allowing = "range[0;99999]",
+                                       @onkeypress = "isNumeric(this)",
+                                       @onchange = "isNumeric(this)",
+                                       @placeholder = "Damrage"
+                                   })
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Parcel Type </label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.ParcelTypeID, Model.ParcelTypeList, "-- Select ParcelType --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlParcelType" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 ">
+                                    <div class="form-group">
+                                        <label for="Phone">Parcel Containt</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.ParcelContainerID, Model.ParcelContainerList, "-- Select ParcelContaint --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlParcelContainer" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="Phone">Delivery</label>
+                                        @Html.EnumDropDownListFor(
+  x => Model.DeliverdStatus,
+  "Select Delivery",
+  new { @class = "form-control" })
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-3 InTransitClass">
+                                    <div class="form-group">
+                                        <label for="Phone">PickUpBy</label>
+                                        <br />
+                                        @Html.DropDownListFor(m => Model.PickUpBoyID, Model.PickUpBoyList, "-- Select Boy --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlPickUpBoy" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3 InTransitClass">
+                                    <div class="form-group">
+                                        <label for="Phone">PickUp Date</label>
+                                        @{
+                                            var pDate = Model.PickUpDate.HasValue ?
+                                            Model.PickUpDate.Value.ToString("dd/MM/yyyy") : null;
+                                        }
+                                        @Html.TextBoxFor(m => pDate, new
+                                   {
+                                       @id = "PickUpDate",
+                                       @class = "form-control datepicker1",
+                                       @placeholder = "PickUp Date"
+                                   })
+                                    </div>
+                                </div>
+                                <div class="col-md-3 DeliveredClass">
+                                    <div class="form-group">
+                                        <label for="Phone">Delivery Date</label>
+                                        @{
+                                            var dDate = Model.DeliveryDate.HasValue ?
+                                            Model.DeliveryDate.Value.ToString("dd/MM/yyyy") : null;
+                                        }
+                                        @Html.TextBoxFor(m => dDate, new
+                                   {
+                                       @id = "DeliveryDate",
+                                       @class = "form-control datepicker1",
+                                       @placeholder = "Delivery Date"
+                                   })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 DeliveredClass">
+                                    <div class="form-group">
+                                        <label for="Phone">Receiver Customer?</label>
+                                        <input type="checkbox" value="@Model.DeliveryByCustomer" checked="@Model.DeliveryByCustomer" name="DeliveryByCustomer" class="chk btn btn-warning btn-icon btn-circle" id="DeliveryByCustomer">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3 DeliveredClass ReceiverDetail">
+                                    <div class="form-group">
+                                        <label for="Phone">Receiver Details</label>
+
+                                        @Html.TextBoxFor(m => Model.ReceiverDetails, new
+                                   {
+                                       @id = "ReceiverDetails",
+                                       @class = "form-control ",
+                                       @placeholder = "Receiver Details",
+                                       maxlength = "50"
+                                   })
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+
+                            <button type="submit" id="btnSavePrint" class="btn btn-sm btn-success m-r-5 btnM22">Save & Print</button>
+
+                            <button type="reset" id="btnReset" class="btn btn-sm btn-danger m-r-5 btnM22">Reset</button>
+
+                            <span id="error" class="hidden"></span>
+                        </fieldset>
+                                            }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        var buttonpressed;
+
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+
+            var ddlBus = $('#ddlBus').val();
+            if (ddlBus == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Bus.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+
+            var ddlSenderCity = $('#ddlSenderCity').val();
+            if (ddlSenderCity == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select From City.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var ddlReceiverCity = $('#ddlReceiverCity').val();
+            if (ddlReceiverCity == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select To City.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+
+            var ddl = $('#DeliverdStatus').val();
+            if (ddl == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Delivery Status.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var ddl = $('#PayType').val();
+            if (ddl == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select PayType.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var ddlParcelType = $('#ddlParcelType').val();
+            if (ddlParcelType == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Parcel Type.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var ddlParcelContainer = $('#ddlParcelContainer').val();
+            if (ddlParcelContainer == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Parcel Containt.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+            debugger;
+            var DeliveryByCustomer = false;
+            if ($('#DeliveryByCustomer').is(':checked')) {
+                DeliveryByCustomer = true;
+            }
+
+            if (DeliveryByCustomer) {
+                var ReceiverDetails = $('#ReceiverDetails').val();
+                if (ReceiverDetails == "") {
+                    $.toast({
+                        heading: 'error',
+                        text: 'Please Enter Receiver Details.',
+                        showHideTransition: 'fade',
+                        position: 'top-right',
+                        icon: 'error'
+                    })
+                    return false;
+                }
+            }
+            //alert('button clicked was ' + buttonpressed);
+
+            var uploadVM = {};
+            uploadVM.TransactionDetailID = $('#TransactionDetailID').val();
+            uploadVM.TransactionMasterID = $('#TransactionMasterID').val();
+            uploadVM.BusID = $('#ddlBus').val();
+            uploadVM.LRNo = $('#LRNo').val();
+            uploadVM.NoOfParcel =$('#NoOfParcel').val();
+            //uploadVM.DriverName =$('#DriverName').val();
+            uploadVM.SenderName =$('#SenderName').val();
+            uploadVM.SenderNumber =$('#SenderNumber').val();
+            uploadVM.SenderID =$('#SenderID').val();
+            uploadVM.SenderCityID =$('#ddlSenderCity').val();
+            uploadVM.ReceiverName =$('#ReceiverName').val();
+            uploadVM.ReceiverNumber =$('#ReceiverNumber').val();
+            uploadVM.ReceiverID =$('#ReceiverID').val();
+            uploadVM.ReceiverCityID =$('#ddlReceiverCity').val();
+            uploadVM.Amount =$('#Amount').val();
+            uploadVM.Cartage ='0';
+            uploadVM.Hamali =$('#Hamali').val();
+            uploadVM.Damrage =$('#Damrage').val();
+            uploadVM.DeliverdStatus =$('#DeliverdStatus').val();
+            uploadVM.PayType =$('#PayType').val();
+            uploadVM.TransactionDate =$('#TransactionDate').val();
+            uploadVM.ParcelContainerID =$('#ddlParcelContainer').val();
+            uploadVM.ParcelTypeID =$('#ddlParcelType').val();
+
+            uploadVM.PickUpDate =$('#PickUpDate').val();
+            uploadVM.PickUpBoyID =$('#ddlPickUpBoy').val();
+            uploadVM.DeliveryDate =$('#DeliveryDate').val();
+            uploadVM.DeliveryByCustomer =DeliveryByCustomer;
+            uploadVM.ReceiverDetails =$('#ReceiverDetails').val();
+
+            ///PageLoaderShow();
+            $.ajax({
+                url: '/Home/TransactionPost',
+                dataType: 'json',
+                data: { "uploadVM": uploadVM },
+                type: 'POST',
+                success: function (data) {
+                    if (buttonpressed == 'btnSavePrint' ) {
+                        //window.open('/Home/TransactionPrint/'+uploadVM.TransactionDetailID, "popupWindow", "_blank");
+                        window.location.href = '/Home/TransactionPrint/'+data.Url;
+                    }
+                    else {
+                        window.location.href = '/Home/Undelivered';
+                    }
+                    //if (data ==false) {
+                    //    window.location.href = '/Home/Undelivered';
+                    //}
+                    //else{
+                    //    window.location.href = '/PDF/'+data;
+                    //}
+                    //if (buttonpressed == 'btnSavePrint' ) {
+                    //    //window.location.href = '/PDF/'+data;
+                    //   window.open('/PDF/'+data, "popupWindow", "_blank");
+                    //    //window.location.href = '/Home/Undelivered';
+                    //}
+                    //else {
+                    //    window.location.href = '/Home/Undelivered';
+                    //}
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+
+        $(document).ready(function () {
+
+            $("#SenderName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/Search",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (CustomerListResult) {
+                                return {
+                                    label: CustomerListResult.CustomerName,
+                                    value: CustomerListResult.CustomerID
+                                };
+                            }))
+                        }
+                    })
+                },
+                minLength: 3,
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var CustomerID = ui.item.value;
+                    $.ajax({
+                        url: "/Home/SelectById",
+                        type: "POST",
+                        dataType: "json",
+                        data: { "CustomerID": CustomerID},
+                        success: function (data) {
+                            $('#SenderID').val(data.CustomerID);
+                            $('#SenderName').val(data.CustomerName);
+                            $('#SenderNumber').val(data.CustomerNumber)
+                        }
+                    })
+                    return false;
+                },
+                userListResult: {
+                    noResults: "", userListResult: ""
+                }
+
+            });
+
+            $("#ReceiverName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/Search",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (CustomerListResult) {
+                                return {
+                                    label: CustomerListResult.CustomerName,
+                                    value: CustomerListResult.CustomerID
+                                };
+                            }))
+                        }
+                    })
+                },
+                minLength: 3,
+                select: function (event, ui) {
+                    event.preventDefault();
+                    var CustomerID = ui.item.value;
+                    $.ajax({
+                        url: "/Home/SelectById",
+                        type: "POST",
+                        dataType: "json",
+                        data: { "CustomerID": CustomerID},
+                        success: function (data) {
+
+                            $('#ReceiverID').val(data.CustomerID);
+                            $('#ReceiverName').val(data.CustomerName);
+                            $('#ReceiverNumber').val(data.CustomerNumber)
+                        }
+                    })
+                    return false;
+                },
+                userListResult: {
+                    noResults: "", userListResult: ""
+                }
+
+            });
+
+            $(document).on('change', '#DeliverdStatus', function () {
+                StatusChange();
+            })
+
+            StatusChange();
+
+            if (model.DeliverdStatus == 2 ) {
+                if (model.RoleID == 1 ) {
+                    $('.btnM22').show();
+                }
+                else {
+                    $('.btnM22').hide();
+                }
+            }
+            else {
+                $('.btnM22').show();
+            }
+            debugger;
+            if (model.DeliveryByCustomer) {
+                $('.ReceiverDetail').show();
+            }
+            else {
+                $('.ReceiverDetail').hide();
+            }    
+
+            function StatusChange(){
+                var DeliverdStatus = $('#DeliverdStatus').val();
+                if (DeliverdStatus == 1) {
+                    $('.InTransitClass').show();
+                    $('.DeliveredClass').hide();
+                }
+                else if (DeliverdStatus == 2){
+                    $('.InTransitClass').hide();
+                    $('.DeliveredClass').show();
+
+                    //$('#DeliveryByCustomer').prop('checked', false);
+                    $('.ReceiverDetail').hide();
+                   
+                }
+                else {
+                    $('.InTransitClass').hide();
+                    $('.DeliveredClass').hide();
+                }
+            }
+
+            $('[type="submit"]').on('click', function () {
+                buttonpressed = $(this).attr('id');
+            });
+
+            $('#btnReset').on('click', function () {
+                $("#frmForm")[0].reset();
+            });
+             
+
+            $('#DeliveryByCustomer').change(function() {
+                if($(this).is(":checked")) {
+                    $('.ReceiverDetail').show();
+                }
+                else {
+                    $('.ReceiverDetail').hide();
+                }
+            });
+        })
+
+        
+
+        
+    </script>
+
+}

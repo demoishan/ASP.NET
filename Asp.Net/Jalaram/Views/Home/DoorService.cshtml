@@ -1,0 +1,250 @@
+﻿@model JalaramTravels.ViewModel.InTransitCharges
+@{
+    ViewBag.Title = "InTransitCharges";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Door Service  <small> </small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        
+                    </div>
+                    <h4 class="panel-title">Details</h4>
+                </div>
+                @using (Html.BeginForm("DoorServicePost", "Home", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4">Select PickUpBoy</label>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.TempoID, Model.PickUpBoyList, "-- Select Boy --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlTempo" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="Phone">PickUpDate Date</label>
+                                    @{
+                                        var PickUpDate = Model.PickUpDate.HasValue ?
+                                            Model.PickUpDate.Value.ToString("dd/MM/yyyy") : null;
+                                    }
+                                    @Html.TextBoxFor(m => @PickUpDate, new
+                           {
+                               @id = "PickUpDate",
+                               @class = "form-control datepicker1",
+                               @placeholder = "PickUp Date Date"
+                           })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="table-responsive">
+                            <table id="tbl1" class="table table-striped table-bordered nowrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>LRNo</th> 
+                                        <th>Amount</th>
+                                        <th>Pay Type</th>
+                                        <th>Hamali</th>
+                                        <th>No Of Parcel</th>
+                                        <th>Damrage</th>
+                                        @*<th>Parcel Type</th>
+                                        <th>Parcel container</th>*@
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.inTransitChargesDetails)
+                                    {
+
+                                        <tr class="odd gradeX">
+
+                                            <td>
+                                                @item.LRNo
+                                            @Html.HiddenFor(m => item.TransactionDetailID, new { @class = "form-control TransactionDetailID" })
+                                            @Html.HiddenFor(m => item.TransactionMasterID, new { @class = "form-control TransactionMasterID" })
+
+                                        </td>
+
+                                        <td>
+                                            @Html.TextBoxFor(m => item.Amount, new
+                                           {
+                                               @id = "Amount",
+                                               @class = "form-control Amount",
+                                               @data_validation = "required",
+                                           })
+                                        </td>
+                                            <td>
+                                               @Html.EnumDropDownListFor(
+                                          x => item.PayType,
+                                          "Select PayType",
+                                          new { @class = "form-control PayType" })
+                                            </td>
+
+
+
+                                        <td>
+                                            @Html.TextBoxFor(m => item.Hamali, new
+                                           {
+                                               @id = "Hamali",
+                                               @class = "form-control Hamali",
+                                               @data_validation = "required",
+                                           })
+                                        </td>
+
+                                        <td>
+                                            @Html.TextBoxFor(m => item.NoOfParcel, new
+                                           {
+                                               @id = "NoOfParcel",
+                                               @class = "form-control NoOfParcel",
+                                               @data_validation = "required",
+                                           })
+                                        </td>
+
+
+                                        <td>
+                                            @Html.TextBoxFor(m => item.Damrage, new
+                                           {
+                                               @id = "Damrage",
+                                               @class = "form-control Damrage",
+                                               @data_validation = "required",
+                                           })
+                                        </td>
+
+
+                                        @*<td>
+                                            @Html.DropDownListFor(m =>item.ParcelTypeID,
+                                            new SelectList(item.ParcelTypeList, "Value", "Text", item.ParcelTypeID),
+                                           "-- Select Type --", new { @class = " form-control ParcelTypeID", @id = "ddlParcelType" })
+                                        </td>
+
+                                        <td>
+
+                                            @Html.DropDownListFor(m => item.ParcelContainerID,
+                                           new SelectList(item.ParcelContainerList, "Value", "Text", item.ParcelContainerID),
+                                           "-- Select Container --", new { @class = " form-control ParcelContainerID", @id = "ddlParcelContainer" })
+                                        </td>*@
+
+                                    </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button type="submit" id="btnDoor" class="btn btn-sm btn-primary m-r-5 btnM22">Save</button>
+                                <button type="button" id="btnBack" class="btn btn-sm btn-danger m-r-5 btnM22">Back</button>
+                            </div>
+                        </div>
+                       
+                         
+                    </div>
+                }
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+       
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+
+
+            var InTransitCharges={};
+            var TempoID= $('#ddlTempo').val();
+            if (TempoID ==0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select PickUpBoy',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return;
+            }
+
+            var PickUpDate= $('#PickUpDate').val();
+            if (PickUpDate == null || PickUpDate == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select PickUpDate',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return;
+            }
+
+            InTransitCharges.TempoID =TempoID;
+            InTransitCharges.PickUpDate =PickUpDate;
+            InTransitCharges.inTransitChargesDetails = [];
+
+
+            $("#tbl1").find('tbody').find('tr').each(function () {
+                var activityLog = {};
+                $(this).each(function (colIndex, c) {
+                    activityLog.TransactionDetailID = $(this).find('.TransactionDetailID').val();
+                    activityLog.TransactionMasterID = $(this).find('.TransactionMasterID').val();
+                    activityLog.Amount = $(this).find('.Amount').val();
+                    activityLog.Hamali = $(this).find('.Hamali').val();
+                    activityLog.Damrage = $(this).find('.Damrage').val();
+                    activityLog.ParcelTypeID = $(this).find('.ParcelTypeID').val();
+                    activityLog.ParcelContainerID = $(this).find('.ParcelContainerID').val();
+                    activityLog.NoOfParcel = $(this).find('.NoOfParcel').val(); 
+                    activityLog.PayType = $(this).find('.PayType').val();
+                });
+                InTransitCharges.inTransitChargesDetails.push(activityLog);
+            });
+
+           // PageLoaderShow();
+            $.ajax({
+                url: '/Home/DoorServicePost',
+                // dataType: 'json',
+                data: { "inTransitCharges": InTransitCharges },
+                type: 'POST',
+                success: function (data) {
+                    //    //PageLoaderHide();
+                    ////window.location.href = '/PDF/'+data; 
+                    //window.open('/PDF/'+data, "popupWindow", "_blank");
+                    var favorite = [];
+                    $("#tbl1").find('tbody').find('tr').each(function () {
+                        $(this).each(function (colIndex, c) {
+                            favorite.push($(this).find('.TransactionDetailID').val())
+                        });
+                    });
+                    if (data ==true) { 
+                        window.location.href = '/Home/DoorServicePrint?Transactions='+favorite +"&pickBoy="+TempoID ; 
+                    }
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+        
+        
+        $('#btnBack').on('click', function () { 
+            window.location.href = '/Home/Undelivered';
+        });
+    </script>
+}

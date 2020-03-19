@@ -1,0 +1,56 @@
+﻿@model DemoIshan.Models.Student
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br />
+<div class="row">
+    @using (Ajax.BeginForm("Index", "Home", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccess", OnFailure = "OnFailure" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Fname, null, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Fname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Fname, null, new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Lname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Lname, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Lname, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+            </div>
+        </div>
+    }
+    <div id="myPartialViewContainer">
+        @Html.Action("GetDetails", "Home")
+        @*@{Html.RenderAction("GetDetails", "Home");}*@
+        @*@Html.RenderPartial("~/views/Home/_GetDetails.cshtml", Model);*@
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@section scripts {
+@Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("ready!");
+        });
+        function OnSuccess(data) {
+            $("#myPartialViewContainer").load('@Url.Action("GetDetails", "Home")')
+            debugger;
+        }
+        function OnFailure() {
+            alert('ERROR');
+        }
+    </script>
+}

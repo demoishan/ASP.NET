@@ -1,0 +1,319 @@
+﻿@model IEnumerable<JalaramTravels.ViewModel.TransactionDetailsVM>
+@{
+    ViewBag.Title = "Preview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .form-control {
+        width: 70px;
+    }
+
+    .Disabled {
+        cursor: not-allowed;
+        background-color: grey;
+        pointer-events:none;
+    }
+</style>
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Preview<small> </small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                       
+                    </div>
+                    <h4 class="panel-title">Details</h4>
+                </div>
+                @using (Html.BeginForm("PreviewPost", "Home", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="data-table1" class="table table-striped table-bordered nowrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>LRNo</th>
+                                        <th>Pay Type</th>
+                                        <th>Amt</th>
+                                        <th>Hamali</th>
+                                        <th>N.O.P.</th>
+                                        <th>Cartage</th>
+                                        <th>Type</th>
+                                        <th>Containt</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>ToNumber</th>
+                                        <th>ToCity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="odd gradeX" id="@item.Id">
+                                            <td id="@item.Id">
+                                                <i id="DeleteI" class="fa fa-trash" onclick="DisabledListing('@item.Id')" data-toggle="tooltip" title="Remove"
+                                                   style="color:red"></i>
+                                                <i id="ViewI" class="fa fa-eye" onclick="ShowListing('@item.Id')" data-toggle="tooltip" title="Remove"
+                                                   style="color:blue;display:none"></i>
+                                            </td>
+                                            <td >
+                                                @Html.HiddenFor(m => item.Id, new { @class = "form-control Id",@id= "Id" })
+                                                @Html.HiddenFor(m => item.StatusFlag, new { @class = "form-control StatusFlag",@id= "StatusFlag" })
+                                                @Html.HiddenFor(m => item.BusID, new { @class = "form-control BusID" })
+                                                @Html.HiddenFor(m => item.DriverName, new { @class = "form-control DriverName" })
+                                                @Html.HiddenFor(m => item.TransactionDate, new { @class = "form-control TransactionDate" })
+                                                @Html.HiddenFor(m => item.SenderCityID, new { @class = "form-control SenderCityID" })
+                                                @Html.TextBoxFor(m => item.LRNo, new
+                                           {
+                                               @id = "LRNo",
+                                               @class = "form-control LRNo",
+                                               @data_validation = "required",
+                                               @placeholder = "L.R. No",
+                                               @style = "width:52px;"
+                                           })
+                                            </td>
+                                            <td>
+                                                @Html.EnumDropDownListFor(
+                                          x => item.PayType,
+                                          "Select PayType",
+                                          new { @class = "form-control PayType" })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.Amount, new
+                                           {
+                                               @id = "Amount",
+                                               @class = "form-control Amount",
+                                               maxlength = "5",
+                                               @data_validation = "number required",
+                                               @data_validation_allowing = "range[0;99999]",
+                                               @onkeypress = "isNumeric(this)",
+                                               @onchange = "isNumeric(this)",
+                                               @placeholder = "Amount",
+                                               @style = "width:55px;"
+                                           })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(m => item.Hamali, new
+                                           {
+                                               @id = "Hamali",
+                                               @class = "form-control Hamali",
+                                               maxlength = "5",
+                                               @data_validation = "number required",
+                                               @data_validation_allowing = "range[0;99999]",
+                                               @onkeypress = "isNumeric(this)",
+                                               @onchange = "isNumeric(this)",
+                                               @placeholder = "Hamali",
+                                               @style = "width:50px;"
+                                           })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.NoOfParcel, new
+                                           {
+                                               @id = "NoOfParcel",
+                                               @class = "form-control NoOfParcel",
+                                               maxlength = "3",
+                                               @data_validation = "number required",
+                                               @data_validation_allowing = "range[0;999]",
+                                               @onkeypress = "isNumeric(this)",
+                                               @onchange = "isNumeric(this)",
+                                               @placeholder = "NoOfParcel",
+                                               @style = "width:40px;"
+                                           })
+                                            </td>
+
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.Cartage, new
+                                           {
+                                               @id = "Cartage",
+                                               @class = "form-control Cartage",
+                                               maxlength = "5",
+                                               @data_validation = "number required",
+                                               @data_validation_allowing = "range[0;99999]",
+                                               @onkeypress = "isNumeric(this)",
+                                               @onchange = "isNumeric(this)",
+                                               @placeholder = "Cartage",
+                                               @style = "width:40px;"
+                                           })
+                                            </td>
+
+
+                                            <td>
+                                                @Html.DropDownListFor(m => item.ParcelTypeID,
+                                            new SelectList(item.ParcelTypeList, "Value", "Text", item.ParcelTypeID),
+                                           "-- Select Type --", new { @class = " form-control ParcelTypeID", @id = "ddlParcelType", @data_validation = "required" })
+                                            </td>
+
+                                            <td>
+
+                                                @Html.DropDownListFor(m => item.ParcelContainerID,
+                                           new SelectList(item.ParcelContainerList, "Value", "Text", item.ParcelContainerID),
+                                           "-- Select Containt --", new { @class = " form-control ParcelContainerID", @id = "ddlParcelContainer", @data_validation = "required" })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.SenderName, new
+                                           {
+                                               @id = "SenderName",
+                                               @class = "form-control SenderName",
+                                               @data_validation = "required",
+                                               maxlength = "20",
+                                               @placeholder = "From Customer"
+                                           })
+                                            </td>
+
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.ReceiverName, new
+                                           {
+                                               @id = "ReceiverName",
+                                               @class = "form-control ReceiverName",
+                                               @data_validation = "required",
+                                               maxlength = "20",
+                                               @placeholder = "To Customer"
+                                           })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.ReceiverNumber, new
+                                           {
+                                               @id = "ReceiverNumber",
+                                               @class = "form-control ReceiverNumber",
+                                               @data_validation = "required",
+                                               maxlength = "20",
+                                               @placeholder = "To Number"
+                                           })
+                                            </td>
+
+                                            <td>
+                                                @Html.TextBoxFor(m => item.ReceiverCity, new
+                                           {
+                                               @id = "ReceiverCity",
+                                               @class = "form-control ReceiverCity",
+                                               @data_validation = "required",
+                                               maxlength = "20",
+                                               @placeholder = "To City"
+                                           })
+                                            </td>
+
+
+
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone"></label>
+                                <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+
+            var InTransitVM={};
+            InTransitVM.TransactionDetailList = [];
+
+            $("#data-table1").find('tbody').find('tr').each(function () {
+                var activityLog = {};
+                $(this).each(function (colIndex, c) {
+                    activityLog.LRNo = $(this).find('.LRNo').val();
+                    activityLog.NoOfParcel = $(this).find('.NoOfParcel').val();
+                    activityLog.SenderName = $(this).find('.SenderName').val();
+                    activityLog.SenderCityID = $(this).find('.SenderCityID').val();
+                    activityLog.SenderNumber = $(this).find('.SenderNumber').val();
+                    activityLog.ReceiverName = $(this).find('.ReceiverName').val();
+                    activityLog.ReceiverNumber = $(this).find('.ReceiverNumber').val();
+                    activityLog.ReceiverCity = $(this).find('.ReceiverCity').val();
+                    activityLog.Amount = $(this).find('.Amount').val();
+                    activityLog.Cartage = $(this).find('.Cartage').val();
+                    activityLog.ParcelTypeID = $(this).find('.ParcelTypeID').val();
+                    activityLog.ParcelContainerID = $(this).find('.ParcelContainerID').val();
+                    activityLog.PayType = $(this).find('.PayType').val();
+                    activityLog.BusID = $(this).find('.BusID').val();
+                    activityLog.DriverName = $(this).find('.DriverName').val();
+                    activityLog.TransactionDate = $(this).find('.TransactionDate').val();
+                    activityLog.Id = $(this).find('.Id').val();
+                    activityLog.StatusFlag = $(this).find('.StatusFlag').val();
+                });
+                InTransitVM.TransactionDetailList.push(activityLog);
+            });
+            PageLoaderShow();
+            $.ajax({
+                url: '/Home/PreviewPost',
+                dataType: 'json',
+                data: { "inTransitVM": InTransitVM },
+                type: 'POST',
+                success: function () {
+                   PageLoaderHide();
+                    window.location.href = '/Home/Undelivered/';
+                },
+                error: function (req, status, err) {
+                    PageLoaderHide();
+                    window.location.href = '/Home/Preview/';
+                }
+            });
+        });
+
+        function DisabledListing(ListingId) {
+            var TR= $('#'+ListingId);
+            TR.find('#StatusFlag').val('N');
+            TR.find('td').find('tr').addClass('Disabled');
+            TR.find('td').find('.form-control').addClass('Disabled');
+           
+            TR.find('td').find('tr').find('#'+ListingId).removeClass('Disabled');
+            TR.find('#DeleteI').hide();
+            TR.find('#ViewI').show();
+        }
+        function ShowListing(ListingId) {
+          
+            var TR= $('#'+ListingId);
+            TR.find('#StatusFlag').val('Y');
+            TR.find('td').find('tr').removeClass('Disabled');
+            TR.find('td').find('.form-control').removeClass('Disabled');
+           
+            TR.find('#DeleteI').show();
+            TR.find('#ViewI').hide();
+        }
+
+        $(function () {
+            $('#data-table1').dataTable({
+                aLengthMenu: [
+          [25, 50, 100, 200, -1],
+          [25, 50, 100, 200, "All"]
+                ],
+                iDisplayLength: -1
+            });
+        });
+    </script>
+
+}

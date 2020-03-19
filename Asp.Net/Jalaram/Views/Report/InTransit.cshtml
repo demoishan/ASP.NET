@@ -1,0 +1,202 @@
+﻿@model JalaramTravels.ViewModel.InTransitVM
+
+@{
+    ViewBag.Title = "InTransit Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">In Transit<small> Parcels</small> Report</h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                       
+                    </div>
+                    <h4 class="panel-title">List</h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Select PickUpBoy</label>
+                                <br />
+                                @Html.DropDownListFor(m => m.PickUpBoyID, Model.PickUpBoyList, "-- Select Boy --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlTempo" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">PickUpDate Start Date</label>
+                                @Html.TextBoxFor(m => m.PickUpDate, new
+                           {
+                               @id = "PickUpDate",
+                               @class = "form-control datepicker1",
+                               @placeholder = "PickUp Start Date Date"
+                           })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">PickUpDate End Date</label>
+                                @Html.TextBoxFor(m => m.PickUpDateEnd, new
+                           {
+                               @id = "PickUpDateEnd",
+                               @class = "form-control datepicker1",
+                               @placeholder = "PickUp End Date Date"
+                           })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary m-r-5 btnM22">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered nowrap" width="100%">
+                            <thead>
+                                <tr> 
+                                    <th>Sr.</th>
+                                    <th>LRNo</th>
+                                    <th>Transaction Date</th>
+                                    <th>PickUpBY</th>
+                                    <th>PickUpDate</th>
+                                    <th>Bus Name</th>
+                                    <th>To</th>
+                                    <th>ToNumber</th>
+                                    <th>From</th>
+                                    <th>CreateBy</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int i = 1;}
+                                @if (Model.TransactionDetailList != null)
+                                {
+                                    foreach (var item in Model.TransactionDetailList)
+                                    {
+
+                                        <tr class="odd gradeX">
+                                            <td class="">
+                                                @i
+                                            </td>
+                                            <td>@item.LRNo</td>
+                                            <td>@item.TransactionDateS</td>
+                                            <td>@item.PickUpBoy</td>
+                                            <td>@item.PickUpDateS</td>
+                                            <td>@item.BusName</td>
+                                            <td>@item.ReceiverName</td>
+                                            <td>@item.ReceiverNumber</td>
+                                            <td>@item.SenderName</td>
+                                            <td>@item.CreateUserString</td>
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                </div>
+
+
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $('#btnSearch').click(function () {
+            var ddlTempo = $('#ddlTempo').val();
+         
+            var PickUpDate = $('#PickUpDate').val();
+            if (PickUpDate == null || PickUpDate == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please select PickUpDate Start Date.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var PickUpDateEnd = $('#PickUpDateEnd').val();
+            if (PickUpDateEnd == null || PickUpDateEnd == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please select PickUpDateEnd End Date.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var TransactionDetailFiler={};
+            TransactionDetailFiler.PickUpBoyID=ddlTempo;
+            TransactionDetailFiler.PickUpDate=PickUpDate;
+            TransactionDetailFiler.PickUpDateEnd=PickUpDateEnd;
+            $.ajax({
+                url: '/Report/InTransitFilter',
+                dataType: 'json',
+                data: { "transactionDetailFiler": TransactionDetailFiler },
+                type: 'POST',
+                success: function (resp) {
+                    $('#example').dataTable().fnClearTable();
+                    var dataTable = $('#example').DataTable();
+
+                    $.each(resp, function (i, val) {
+                       
+                        dataTable.row.add([i+1,val.LRNo,val.TransactionDateS,val.PickUpBy,val.PickUpDateS,val.BusName ,val.BusNumber,val.ReceiverName,val.ReceiverNumber,val.SenderName,val.CreateUserString]).draw();
+                    });
+
+                },
+                error: function (req, status, err) {
+                }
+            });
+
+        });
+
+        $(document).ready(function() {
+            $('#example').DataTable( {
+                aLengthMenu: [
+                [ -1],
+                [ "All"]
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+               
+                columnDefs: [ {
+                    targets: -1,
+                    visible: true
+                } ]
+            } );
+        } );
+    </script>
+}

@@ -1,0 +1,119 @@
+﻿@model JalaramTravels.ViewModel.LoginVM
+
+@{
+    ViewBag.Title = "ChangePassword";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Edit Profile<small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                     
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("ChangePasswordPost", "Login", FormMethod.Post, new { @id = "frmCh", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>Edit Profile</legend>
+                            @Html.HiddenFor(m => m.LoginID, new { @id = "LoginID" })
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1"> First Name</label>
+
+                                @Html.TextBoxFor(m => m.FirstName, new
+                           {
+                               @id = "FirstName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "First Name"
+                           })
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Last Name</label>
+
+                                @Html.TextBoxFor(m => m.LastName, new
+                           {
+                               @id = "LastName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "New Password"
+                           })
+                            </div>
+
+                            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">UserName</label>
+
+                                @Html.TextBoxFor(m => m.Email, new
+                           {
+                               @id = "Email",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "email",
+                               @disabled = "disabled"
+                           })
+                            </div>
+ 
+                            <button type="submit" class="btn btn-sm btn-primary m-r-5 btnM22">Submit</button>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#frmCh").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmCh').isValid())
+                return;
+            var LoginVM = {};
+            LoginVM.LoginID = $('#LoginID').val();
+            LoginVM.FirstName =$('#FirstName').val();
+            LoginVM.LastName =$('#LastName').val();
+
+
+            $('#error').addClass('hidden');
+            $.ajax({
+                url: '/Login/EditProfilePost',
+                dataType: 'json',
+                data: { "loginVM": LoginVM },
+                type: 'POST',
+                success: function (resp) {
+                    if (resp.Result) {
+                        window.location.href = '/Login/EditProfile';
+                    }
+                    else {
+                        window.location.href = '/Login/EditProfile';
+                    }
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+    </script>
+
+}

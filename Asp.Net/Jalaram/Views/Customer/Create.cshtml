@@ -1,0 +1,152 @@
+﻿@model JalaramTravels.ViewModel.CustomerVM
+
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Customer <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                      
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "Customer", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>Customer</legend>
+                            @Html.HiddenFor(m => m.CustomerID, new { @id = "CustomerID" })
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Customer Name</label>
+
+                                @Html.TextBoxFor(m => m.CustomerName, new
+                           {
+                               @id = "CustomerName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "Customer Name",
+                               maxlength = "30",
+                           })
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Customer Number</label>
+
+                                @Html.TextBoxFor(m => m.CustomerNumber, new
+                           {
+                               @id = "CustomerNumber",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "Customer Number",
+                               maxlength = "30",
+                           })
+                            </div>
+
+
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">City</label>
+                                <br />
+                                @Html.DropDownListFor(m => Model.CustomerCityID, Model.CityList, "-- Select City --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlCity" })
+                            </div>
+
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+
+                            <button type="submit" id="btnSaveNew" class="btn btn-sm btn-success m-r-5 btnM22">Save & New</button>
+
+                            <span id="error" class="hidden"></span>
+
+                        </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        var buttonpressed;
+
+     
+
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+
+            var ddlCity = $('#ddlCity').val();
+            if (ddlCity == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select City.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var CustomerVM = {};
+            CustomerVM.CustomerID = $('#CustomerID').val();
+            CustomerVM.CustomerName = $('#CustomerName').val();
+            CustomerVM.CustomerNumber =$('#CustomerNumber').val();
+            CustomerVM.CustomerCityID =ddlCity;
+             
+            $.ajax({
+                url: '/Customer/Create',
+                dataType: 'json',
+                data: { "CustomerVM": CustomerVM },
+                type: 'POST',
+                success: function (resp) {
+                    if (resp.IsError) {
+                        $('#error').removeClass('hidden');
+                        $('#error').html(resp.ErrorMessage);
+                        $("#error").css("color", "red");
+                        $('#error').show();
+                    }
+                    else {
+                        if (buttonpressed == 'btnSaveNew') {
+                            window.location.href = '/Customer/Create';
+                        }
+                        else {
+                            // btnSave
+                            window.location.href = '/Customer/';
+                        }
+                       
+                    }
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+
+        $(function () {
+            $('[type="submit"]').on('click', function () {
+                buttonpressed = $(this).attr('id');
+            });
+        });
+    </script>
+
+}

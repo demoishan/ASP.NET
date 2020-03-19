@@ -1,0 +1,125 @@
+﻿@model JalaramTravels.ViewModel.BusVM
+
+@{
+    ViewBag.Title = "Bus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Bus <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "Bus", FormMethod.Post, new { @id = "frmBus", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>Bus</legend>
+                            @Html.HiddenFor(m => m.BusID, new { @id = "BusID" })
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Bus Name & Number</label>
+
+                                @Html.TextBoxFor(m => m.BusName, new
+                           {
+                               @id = "BusName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "Bus Name & Number",
+                               maxlength = "30",
+                           })
+                            </div>
+
+                            @*<div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                             <label for="exampleInputEmail1">Bus Number</label>
+
+                             @Html.TextBoxFor(m => m.BusNumber, new
+                        {
+                            @id = "BusNumber",
+                            @class = "form-control",
+                            @data_validation = "required",
+                            @placeholder = "Bus Number",
+                            maxlength = "30",
+                        })
+                         </div>*@
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+
+                            <button type="submit" id="btnSaveNew" class="btn btn-sm btn-success m-r-5 btnM22">Save & New</button>
+
+                            <span id="error" class="hidden"></span>
+                         </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        var buttonpressed;
+
+        $("#frmBus").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmBus').isValid())
+                return;
+            var busVM = {};
+            busVM.BusID = $('#BusID').val();
+            busVM.BusName =$('#BusName').val();
+            //busVM.BusNumber =$('#BusNumber').val();
+            $('#error').removeClass('hidden');
+            $.ajax({
+                url: '/Bus/Create',
+                dataType: 'json',
+                data: { "busVM": busVM },
+                type: 'POST',
+                success: function (resp) {
+                    if (resp.IsError) {
+                        $('#error').removeClass('hidden');
+                        $('#error').html(resp.ErrorMessage);
+                        $("#error").css("color", "red");
+                        $('#error').show();
+                    }
+                    else {
+                        if (buttonpressed == 'btnSaveNew') {
+                            window.location.href = '/Bus/Create';
+                        }
+                        else {
+                            // btnSave
+                            window.location.href = '/Bus/';
+                        }
+                    }
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+        $(function () {
+            $('[type="submit"]').on('click', function () { 
+                buttonpressed = $(this).attr('id');
+            });
+        });
+    </script>
+
+}

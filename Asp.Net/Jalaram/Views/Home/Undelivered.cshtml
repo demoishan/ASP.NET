@@ -1,0 +1,329 @@
+﻿@model JalaramTravels.ViewModel.TransactionDetailVM
+
+@{
+    ViewBag.Title = "Undelivered";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .pop-head {
+        padding: 10px;
+        width: 100%;
+        display: inline-block;
+        text-align: center;
+        font-size: 20px;
+        color: #000;
+        text-transform: uppercase;
+        font-weight: 800;
+    }
+
+
+    .popover {
+        width: 50%;
+        max-width: unset;
+        padding: 20px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    .popover-content {
+        padding: 9px 14px;
+        width: 100%;
+        display: inline-block;
+        overflow: hidden;
+    }
+</style>
+
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Undelivered Parcels  <small> </small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">Details</h4>
+                </div>
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                    <label>Bus</label>
+                                    @Html.DropDownListFor(m => m.BusID, Model.BusList, "-- Select Bus --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlBus" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label for="Phone">Transaction Date</label>
+                                    @{
+                                        var TransactionDate = Model.TransactionDate.HasValue ?
+                                            Model.TransactionDate.Value.ToString("dd/MM/yyyy") : null;
+                                    }
+                                    @Html.TextBoxFor(m => @TransactionDate, new
+                               {
+                                   @id = "TransactionDate",
+                                   @class = "form-control datepicker1",
+                                   @placeholder = "Transaction Date"
+                               })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="button" id="btnFilter" class="btn btn-sm btn-primary m-r-5 btnM22">Filter</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <input type="checkbox" id="checkAll" name="showContact" class="chk" />
+                                            Select All
+                                        </th>
+                                        <th>Tr. Date</th>
+                                        <th>LRNo</th>
+                                        <th>NOP</th>
+                                        <th>Amount</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Mode</th>
+                                        <th>Bus</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.TransactionDetailList)
+                                    {
+
+                                        <tr class="odd gradeX">
+
+                                            <td class="TransactionDetailID">
+                                                @*<a href="@Url.Content("~/Home/Transaction?ID=" + item.TransactionDetailID)" class="btn">
+                                                    <i class="fa fa-pencil" data-toggle="tooltip" title="Edit" style="color:darkgreen"></i>
+                                                </a>*@
+
+                                                <button type="button" class="btn btn-warning btn-icon btn-circle pop btnEdit"   value="@item.TransactionDetailID" >
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+
+                                                <button type="button" rel="popover" data-container="body" class="btn btn-primary btn-icon btn-circle pop">
+                                                    <i class="fa fa-info"></i>
+                                                </button>
+
+                                                @Html.HiddenFor(m => item.TransactionDetailID, new { @id = "TransactionDetailID" })
+                                                <input type="checkbox" name="chkTransactionDetailID" value="@item.TransactionDetailID" class="chk btn btn-warning btn-icon btn-circle" id="checkId">
+
+                                            </td>
+                                            <td>@item.TransactionDateS</td>
+                                            <td>@item.LRNo</td>
+                                            <td>@item.NoOfParcel</td>
+                                            <td>@item.Amount</td>
+                                            <td>@item.SenderName</td>
+                                            <td>@item.ReceiverName</td>
+                                            <td>@item.PayTypeString</td>
+                                            <td>@item.BusName</td>
+                                        </tr>
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone"></label>
+                                <button type="button" id="btnDoor" class="btn btn-sm btn-primary m-r-5">Send For Door Service</button>
+                            </div>
+                        </div>
+                    </div>
+                                        }
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+        //$(".btnEdit").click(function(){
+        //    var TransactionDetailID = $(this).parents().closest('tr').find('.TransactionDetailID').find('#TransactionDetailID').val();
+        //    window.location.href = 'Transaction?ID='+TransactionDetailID;
+        //}); 
+        $(document).on('click', '.btnEdit', function(){
+            var TransactionDetailID = $(this).parents().closest('tr').find('.TransactionDetailID').find('#TransactionDetailID').val();
+            window.location.href = '/home/Transaction/'+TransactionDetailID;
+        });
+
+        $('#btnDoor').click(function () {
+            var favorite = [];
+            $.each($("input[name='chkTransactionDetailID']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            if (favorite.length === 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please at least one Parcel.)',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return;
+            }
+            window.location.href = '/Home/DoorService?Transactions='+favorite;
+        });
+
+        $('#btnFilter').click(function () {
+            var ddlBus = $('#ddlBus').val();
+            if (ddlBus == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Bus.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var TransactionDate = $('#TransactionDate').val();
+            if (TransactionDate == null || TransactionDate == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please select Transaction Date.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var TransactionDetailFiler={};
+            TransactionDetailFiler.TransactionDate=TransactionDate;
+            TransactionDetailFiler.BusID=ddlBus;
+            $("#data-table > tbody").html("");
+            $.ajax({
+                url: '/Home/UndeliveredFilter',
+                dataType: 'json',
+                data: { "transactionDetailFiler": TransactionDetailFiler },
+                type: 'POST',
+                success: function (resp) {
+                    //$('#data-table').dataTable().fnClearTable();
+                    var table = $('#data-table').DataTable();
+                    table.clear();
+                   
+                    var dataTable = $('#data-table').DataTable();
+
+                    $.each(resp, function (i, val) {
+                        var editlink=' <button type="button" class="btn btn-warning btn-icon btn-circle pop btnEdit " value='+ val.TransactionDetailID+'> <i class="fa fa-pencil"></i> </button>';
+                        editlink= editlink + '  <button type="button" rel="popover" data-container="body" class="btn btn-primary btn-icon btn-circle pop"> <i class="fa fa-info"></i></button>';
+                        editlink = editlink + '<input id="TransactionDetailID" name="item.TransactionDetailID" type="hidden" value="'+val.TransactionDetailID+'"> <input type="checkbox" name="chkTransactionDetailID" value="'+val.TransactionDetailID+'" class="chk btn btn-warning btn-icon btn-circle" id="checkId"/>';
+
+                        dataTable.row.add([editlink,val.TransactionDateS,val.LRNo,val.NoOfParcel,val.Amount,val.SenderName ,val.ReceiverName,val.PayTypeString,val.BusName]).draw();
+                      
+                    });
+                    $('#data-table td:first-child').addClass('TransactionDetailID');
+                },
+                error: function (req, status, err) {
+                    alert('ERROR');
+                }
+            });
+             
+        });
+          
+        $(function(){
+            $('#data-table tr').click(function(event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+             
+            $('[data-toggle="tooltip"]').tooltip();
+            //var popoverTemplate = ['<div class="popover">',
+            //                        '<div class="arrow"></div>',
+            //                        '<div class="pop-head">  Details:-</div>',
+            //                        '<div class="popover-content" >',
+            //                        '</div>',
+            //                        '</div>'].join('');
+
+            var popoverTemplate = ['<div class="popover">',
+                                   '<div class="arrow"></div>',
+                                   '<div class="pop-head">  Details:-</div>',
+                                   '<div class="popover-content" >',
+                                   '</div>',
+                                   '</div>'].join('');
+
+            var popover = $('body').popover({
+                selector: '[rel=popover]',
+                trigger: 'hover',
+                html: true,
+                content: function(){
+                    var TransactionDetailID = $(this).parents().closest('tr').find('.TransactionDetailID').find('#TransactionDetailID').val();
+                    var content = '';
+
+                    $.ajax({
+                        url: '/Home/TransactionDetail',
+                        dataType: 'json',
+                        data: { "ID": TransactionDetailID},
+                        type: 'POST',
+                        success: function (transationDetailVM) {
+                            //$('.se-pre-con').hide();
+                            content = ['  <div class="row">  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">  LRNo:  ' + transationDetailVM.LRNo + ' </div>',
+                                    ' <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> NOP: ' + transationDetailVM.NoOfParcel + ' </div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Tr.Date:' + transationDetailVM.TransactionDateS + '</div>',
+                                    '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Receiver Name:' + transationDetailVM.ReceiverName + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Receiver Number:' + transationDetailVM.ReceiverNumber + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Receiver City:' + transationDetailVM.ReceiverCity + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Status:' + transationDetailVM.DeliverdStatusString + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Mode:' + transationDetailVM.PayTypeString + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Amount:' + transationDetailVM.Amount + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Cartage:' + transationDetailVM.Cartage + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Hamali:' + transationDetailVM.Hamali + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Damrage:' + transationDetailVM.Damrage + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Parcel Type:' + transationDetailVM.ParcelTypeS + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Parcel Container:' + transationDetailVM.ParcelContainerS + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> PickUp By:' + transationDetailVM.PickUpBy + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> PickUp Date:' + transationDetailVM.PickUpDateS + '</div>',
+                                     '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-6"> Delivery Date:' + transationDetailVM.DeliveryDateS + '</div>',
+                                    '</div>'].join('');
+                            $('.popover-content').html(content);
+
+                        },
+                        error: function (req, status, err) {
+                            console.log('something went wrong', status, err);
+                        }
+                    });
+                    return ' ';
+                },
+                template: popoverTemplate,
+                placement: "right"
+            });
+
+        })
+    </script>
+}

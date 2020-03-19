@@ -1,0 +1,11 @@
+
+https://github.com/csotomon/angularAdminLTE //Used
+https://www.npmjs.com/package/angular-admin-lte
+https://github.com/csotomon/Angular2-AdminLTE
+
+https://www.ngdevelop.tech/best-angular-tables/
+
+https://alligator.io/angular/lazy-loading/
+https://www.concretepage.com/angular-2/angular-2-4-named-router-outlet-popup-example
+https://medium.com/angular-in-depth/angular-routing-reusing-common-layout-for-pages-from-different-modules-440a23f86b57
+

@@ -1,0 +1,185 @@
+﻿@model JalaramTravels.ViewModel.ToPayVML
+
+@{
+    ViewBag.Title = "Payments Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Payments <small>Report </small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">Details</h4>
+                </div>
+
+                @using (Html.BeginForm("", "", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label class="control-label">Bus</label>
+                                    <br />
+                                    @Html.DropDownListFor(m => Model.BusID, Model.BusList, "-- Select Bus --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlBus" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label for="Phone">Transaction Start Date</label>
+                                    @Html.TextBoxFor(m => m.TransactionDate, new
+                               {
+                                   @id = "TransactionDate",
+                                   @class = "form-control datepicker1",
+                                   @placeholder = "Transaction Start Date"
+                               })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label for="Phone">Transaction End Date</label>
+                                    @Html.TextBoxFor(m => m.TransactionDateEnd, new
+                               {
+                                   @id = "TransactionDateEnd",
+                                   @class = "form-control datepicker1",
+                                   @placeholder = "Transaction End Date"
+                               })
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <button type="button" id="btnSearch" class="btn btn-sm btn-primary m-r-5 btnM22">Search</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table id="example" class="table table-striped table-bordered nowrap" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.</th>
+                                        <th>Bus Name</th>
+                                        <th>Total Topay</th>
+                                        <th>Total Cartage</th>
+                                        <th>Total Damrage</th>
+                                        <th>Transaction Date</th>
+                                        <th>ReceivedBy</th>
+                                        <th>Pay</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach (var item in Model.ToPayVMList)
+                                    {
+
+                                        <tr class="odd gradeX">
+                                            <td>  @i </td>
+                                            <td>@item.BusName</td>
+                                            <td>@item.TotalTopay</td>
+                                            <td>@item.TotalCartage</td>
+                                            <td>@item.TotalDamrage</td>
+                                            <td>@item.TransactionDateS</td>
+                                            <td>@item.CreateUserString</td>
+                                            <td>
+                                                @if (item.TransactionStatus == JalaramTravels.Models.Enums.TransactionStatus.Incomplete)
+                                                {
+                                                    <label>   Not Paid  </label>
+                                                }
+                                                else
+                                                {
+                                                    <label>  Paid   </label>
+                                                }
+
+                                            </td>
+
+                                        </tr>
+                                        i++;
+                                    }
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                                        }
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $('#btnSearch').click(function () {
+        
+            var TransactionDateEnd = $('#TransactionDateEnd').val();
+            var TransactionDate = $('#TransactionDate').val();
+            var ddlBus = $('#ddlBus').val();
+
+            var toPayObj={};
+            toPayObj.TransactionDate=TransactionDate;
+            toPayObj.TransactionDateEnd=TransactionDateEnd;
+            toPayObj.BusID=ddlBus;
+
+            $.ajax({
+                url: '/Report/PaymentsFilter',
+                dataType: 'json',
+                data: { "toPayObj": toPayObj },
+                type: 'POST',
+                success: function (resp) {
+                    $('#example').dataTable().fnClearTable();
+                    var dataTable = $('#example').DataTable();
+                    $.each(resp.ToPayVMList, function (i, val) {
+                        dataTable.row.add([i+1,val.BusName,val.TotalTopay,val.TotalCartage,val.TotalDamrage,val.TransactionDateS,val.CreateUserString ,val.TransactionStatusString]).draw();
+                    });
+
+                },
+                error: function (req, status, err) {
+                }
+            });
+
+        });
+
+        $(document).ready(function() {
+            
+            $('#example').DataTable( {
+                aLengthMenu: [
+                [ -1],
+                [ "All"]
+                ],
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+
+                columnDefs: [ {
+                    targets: -1,
+                    visible: true
+                } ]
+            } );
+        } );
+    </script>
+}

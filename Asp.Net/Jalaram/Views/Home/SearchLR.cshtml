@@ -1,0 +1,337 @@
+﻿@model JalaramTravels.ViewModel.SearchLRVM
+
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .BoldText {
+        font-weight: bold;
+    }
+
+    .form-group {
+        font-size: 14px;
+    }
+</style>
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Search<small> Parcels</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">List</h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <label for="Phone">LRNo</label>
+
+                                @Html.TextBoxFor(m => m.LRNo, new
+                           {
+                               @id = "LRNoSearch",
+                               @class = "form-control",
+                               @placeholder = "L.R. No",
+                               autofocus = "autofocus"
+                           })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary m-r-5 btnM22">Search </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">LRNo</label>:
+                                        <label for="Phone" id="LRNo"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">No Of Parcel</label>:
+                                        <label for="Phone" id="NoOfParcel"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">BusNumber</label>:
+                                        <label for="Phone" id="BusNumber"></label>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">From</label>:
+                                        <label for="Phone" id="SenderName"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">FromNumber</label>:
+                                        <label for="Phone" id="SenderNumber"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">FromCity</label>:
+                                        <label for="Phone" id="SenderCityName"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">To</label>:
+                                        <label for="Phone" id="ReceiverName"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">ToNumber</label>:
+                                        <label for="Phone" id="ReceiverNumber"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">ToCity</label>:
+                                        <label for="Phone" id="ReceiverCityName"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+                         
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText" id="lblAmount">Amount</label>:
+                                        <label for="Phone" id="Amount"></label>
+
+                                    </div>
+                                </div> 
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">Hamali</label>:
+                                        <label for="Phone" id="Hamali"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">Damrage</label>:
+                                        <label for="Phone" id="Damrage"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+                     <div class="row">
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="BoldText" >FinalAmount</label>:
+                                 <label for="Phone" id="FinalAmount"></label>
+
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="BoldText">ParcelContaint</label>:
+                                 <label for="Phone" id="ParcelContainer"></label>
+
+                             </div>
+                         </div>
+                         <div class="col-md-4">
+                             <div class="form-group">
+                                 <label class="BoldText">ParcelType</label>:
+                                 <label for="Phone" id="ParcelType"></label>
+
+                             </div>
+                         </div>
+                     </div>
+                           
+                            <div class="row" >
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">DeliveryStatus</label>:
+                                        <label for="Phone" class="" id="DeliveryStatus"> </label>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">PayType</label>:
+                                        <label for="Phone" class="" id="PayType"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">TransactionDate</label>:
+                                        <label for="Phone" id="TransactionDate"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+                          
+                            <div class="row" >
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">PickUpBy</label>:
+                                        <label for="Phone" id="PickUpBy"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">PickUpDate</label>:
+                                        <label for="Phone" id="PickUpDate"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">DeliveryDate</label>:
+                                        <label for="Phone" id="DeliveryDate"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">DeliveryBy</label>:
+                                        <label for="Phone" id="DeliveryBy"></label>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="BoldText">CreatedBy</label>:
+                                        <label for="Phone" id="CreatedBy"></label>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <a id="btnTransaction">
+                                    <button type="button" class="btn btn-sm btn-primary m-r-5 ">
+                                        View More
+                                    </button>
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $('#btnSearch').click(function () {
+            var SearchLR = $('#LRNoSearch').val();
+
+            $('#DeliveryStatus').removeClass();
+            $('#PayType').removeClass();
+
+            $.ajax({
+                url: "/Home/SearchLRPost",
+                type: "POST",
+                dataType: "json",
+                data: { "LRNo":SearchLR },
+                success: function (data) {
+                    $('#LRNo').text(data.LRNo);
+                    $('#NoOfParcel').text(data.NoOfParcel);
+                    $('#BusNumber').text(data.BusNumber);
+                    $('#TransactionDate').text(data.TransactionDateS);
+                    $('#SenderName').text(data.SenderName);
+                    $('#SenderNumber').text(data.SenderNumber);
+                    $('#SenderCityName').text(data.SenderCity);
+                    $('#ReceiverName').text(data.ReceiverName);
+                    $('#ReceiverNumber').text(data.ReceiverNumber);
+                    $('#ReceiverCityName').text(data.ReceiverCity);
+                    $('#Amount').text(data.Amount);
+                    $('#Cartage').text(data.Cartage);
+                    $('#Hamali').text(data.Hamali);
+                    $('#FinalAmount').text(data.FinalAmount);
+                    $('#DeliveryStatus').text(data.DeliverdStatusString);
+                    $('#DeliveryStatus').removeClass("badge");
+                    if (data.DeliverdStatus==0) {
+                        $('#DeliveryStatus').addClass("badge badge-danger badge-square");
+                    }
+                    if (data.DeliverdStatus==1) {
+                        $('#DeliveryStatus').addClass("badge badge-warning badge-square");
+                    }
+                    if (data.DeliverdStatus==2) {
+                        $('#DeliveryStatus').addClass("badge badge-success badge-square");
+                    }
+                    $('#PayType').text(data.PayTypeString);
+                    if (data.PayType==0) {
+                        $('#lblAmount').html('Paid Amount');
+                        $('#PayType').addClass("badge badge-Inverse badge-square");
+                    }
+                    if (data.PayType==1) {
+                        $('#lblAmount').html('Topay Amount');
+                        $('#PayType').addClass("badge badge-warning badge-square");
+                    }
+                    $('#PaymentTypes').text(data.PaymentTypesString);
+                    $('#PickUpBy').text(data.PickUpBy);
+                    $('#PickUpDate').text(data.PickUpDateS);
+                    $('#DeliveryDate').text(data.DeliveryDateS);
+                    $('#btnTransaction').attr("href", "/Home/Transaction?ID=" + data.TransactionDetailID);
+                    $('#ParcelContainer').text(data.ParcelContainerS);
+                    $('#ParcelType').text(data.ParcelTypeS);
+                    $('#CreatedBy').text(data.CreateUserS);
+                    $('#DeliveryBy').text(data.DeliveryByUserIDString); 
+                }
+            })
+
+        });
+
+        $(document).on("keypress", "#LRNoSearch", function(e) {
+            if (e.which == 13) {
+                $("#btnSearch").click()
+            }
+        });
+    </script>
+}

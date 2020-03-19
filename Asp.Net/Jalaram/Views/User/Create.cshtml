@@ -1,0 +1,210 @@
+﻿@model JalaramTravels.ViewModel.LoginVM
+
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">User <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                       
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "User", FormMethod.Post, new { @id = "frmUser", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>User</legend>
+                            @Html.HiddenFor(m => m.LoginID, new { @id = "LoginID" })
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">First Name</label>
+
+                                @Html.TextBoxFor(m => m.FirstName, new
+                           {
+                               @id = "FirstName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "First Name",
+                               maxlength = "30",
+                           })
+                            </div>
+
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Last Name</label>
+
+                                @Html.TextBoxFor(m => m.LastName, new
+                           {
+                               @id = "LastName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "Last Name",
+                               maxlength = "30",
+                           })
+                            </div>
+
+                            
+
+                            @if (Model.LoginID == 0)
+                            {
+                                <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <label for="exampleInputEmail1">UserName</label>
+
+                                    @Html.TextBoxFor(m => m.Email, new
+                               {
+                                   @id = "Email",
+                                   @class = "form-control",
+                                   @data_validation = "required",
+                                   @placeholder = "User Name",
+                                   maxlength = "30",
+                               })
+                                </div>
+
+                                <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <label for="exampleInputEmail1">Password</label>
+
+                                    @Html.PasswordFor(m => m.Password, new
+                               {
+                                   @id = "Password",
+                                   @class = "form-control",
+                                   @data_validation = "required",
+                                   @placeholder = "Password",
+                                   maxlength = "30",
+                               })
+                                </div>
+
+                                <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                    <label for="exampleInputEmail1">Confirm Password</label>
+
+                                    @Html.PasswordFor(m => m.Password, new
+                               {
+                                   @id = "ConfirmPassword",
+                                   @class = "form-control",
+                                   @data_validation = "required",
+                                   @placeholder = "Confirm Password",
+                                   maxlength = "30",
+                               })
+                                </div>
+                            }
+
+                            <div class="form-group col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Role</label>
+                                <br />
+                                @Html.DropDownListFor(m => Model.RoleID, Model.RoleList, "-- Select Role --", new { @class = "selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlRole" })
+                            </div>
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+
+                            <button type="submit" id="btnSaveNew" class="btn btn-sm btn-success m-r-5 btnM22">Save & New</button>
+                            <span id="error" class="hidden"></span>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#frmUser").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmUser').isValid())
+                return;
+            var LoginVM = {};
+            LoginVM.LoginID = $('#LoginID').val();
+            LoginVM.FirstName =$('#FirstName').val();
+            LoginVM.LastName =$('#LastName').val();
+           
+
+            var ddlRole = $('#ddlRole').val();
+            if (ddlRole == 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please Select Role.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+            LoginVM.RoleID =ddlRole;
+
+            if ( LoginVM.LoginID == 0) {
+                LoginVM.Email =$('#Email').val();
+                LoginVM.Password =$('#Password').val();
+                LoginVM.ConfirmPassword =$('#ConfirmPassword').val();
+                var Password =$('#Password').val();
+                var ConfirmPassword =$('#ConfirmPassword').val();
+                if (Password != ConfirmPassword) {
+                    $('#Password').val('');
+                    $('#ConfirmPassword').val('');
+                    $.toast({
+                        heading: 'error',
+                        text: 'Password & New Password not match',
+                        showHideTransition: 'fade',
+                        position: 'top-right',
+                        icon: 'error'
+                    })
+                    return;
+                }
+            }
+
+
+            $('#error').addClass('hidden');
+            $.ajax({
+                url: '/User/Create',
+                dataType: 'json',
+                data: { "loginVM": LoginVM },
+                type: 'POST',
+                success: function (resp) {
+                   
+                    if (resp.IsError) {
+                        $('#error').removeClass('hidden');
+                        $('#error').html(resp.ErrorMessage);
+                        $("#error").css("color", "red");
+                        $('#error').show();
+                    }
+                    else {
+                        if (buttonpressed == 'btnSaveNew') {
+                            window.location.href = '/User/Create';
+                        }
+                        else {
+                            // btnSave
+                            window.location.href = '/User/';
+                        }
+                    }
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+
+        $(function () {
+            $('[type="submit"]').on('click', function () { 
+                buttonpressed = $(this).attr('id');
+            });
+        });
+    </script>
+
+}

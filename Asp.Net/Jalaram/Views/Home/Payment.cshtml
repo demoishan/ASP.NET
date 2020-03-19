@@ -1,0 +1,134 @@
+﻿@model JalaramTravels.ViewModel.TransactionPaymentVM
+@{
+    ViewBag.Title = "Payment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">Payment  <small> </small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        
+                    </div>
+                    <h4 class="panel-title">Details</h4>
+                </div>
+                @using (Html.BeginForm("PaymentPost", "Home", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                {
+                    @Html.ValidationSummary(true)
+                    <div class="panel-body">
+                        @Html.HiddenFor(m => Model.TransactionMasterID, new { @class = "form-control TransactionMasterID", @id = "TransactionMasterID" })
+                     
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Phone">Total Parcel :</label>
+                                    @Html.DisplayFor(m => m.TotalParcel)
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Phone">Total Topay :</label>
+                                    @Html.DisplayFor(m => m.TotalTopay)
+
+                                </div>
+                            </div>
+                            @*<div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Phone">Total Paid :</label>
+                                    @Html.DisplayFor(m => m.TotalPaid)
+
+                                </div>
+                            </div>*@
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Phone">Total Damrage :</label>
+                                    @Html.DisplayFor(m => m.TotalDamrage)
+
+                                </div>
+                            </div>
+                        </div>
+                           <div class="row">
+                            
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label ">Select Bus</label>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.BusID, Model.BusList, "-- Select Bus --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlBus" })
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="Phone">Drive Name</label>
+                                    @Html.TextBoxFor(m => m.TopayDriverName, new
+                               {
+                                   @id = "DriverName",
+                                   @class = "form-control",
+                                   @maxlength = "30",
+                                   @data_validation = "required",
+                                   @placeholder = "Drive Name"
+                               })
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group ">
+                                    <label for="Phone">Payment Date</label>
+                                    @{
+                                        var tDate = Model.TopayDate.ToString("dd/MM/yyyy");
+                                    }
+                                    @Html.TextBoxFor(m => tDate, new
+                               {
+                                   @id = "TopayDate",
+                                   @class = "form-control datepicker1",
+                                   @placeholder = "Payment Date"
+                               })
+                                </div>
+                            </div>
+                            <button type="submit" id="btnDoor" class="btn btn-sm btn-primary m-r-5 btnM22">Pay Topay Amount </button>
+                        </div>
+                        
+                    </div>
+                     
+                }
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+            var toPayDetail={};
+            toPayDetail.TransactionMasterID =$('#TransactionMasterID').val();
+            toPayDetail.BusID =$('#ddlBus').val();
+            toPayDetail.TopayDriverName =$('#DriverName').val();
+            toPayDetail.TopayDate =$('#TopayDate').val();
+             
+            $.ajax({
+                url: '/Home/PaymentPaymentPost',
+                dataType: 'json',
+                data: { "transactionPaymentVM": toPayDetail },
+                type: 'POST',
+                success: function (resp) {
+                    window.location.href = '/home/PaymentToPay';
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+         
+    </script>
+}

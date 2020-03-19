@@ -1,0 +1,118 @@
+﻿@model JalaramTravels.ViewModel.ParcelContainerVM
+
+@{
+    ViewBag.Title = "ParcelContaint";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">ParcelContaint <small>Management</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <!-- begin col-6 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-3">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">Default Style</h4>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Create", "ParcelContainer", FormMethod.Post, new { @id = "frmForm", enctype = "multipart/form-data" }))
+                    {
+                        @Html.ValidationSummary(true)
+
+                        <fieldset>
+                            <legend>ParcelContaint</legend>
+                            @Html.HiddenFor(m => m.ParcelContainerID, new { @id = "ParcelContainerID" })
+                            <div class="form-group col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                <label for="exampleInputEmail1">Parcel Containt Name</label>
+
+                                @Html.TextBoxFor(m => m.ParcelContainerName, new
+                           {
+                               @id = "ParcelContainerName",
+                               @class = "form-control",
+                               @data_validation = "required",
+                               @placeholder = "Parcel Containt Name",
+                               maxlength = "30",
+                           })
+                            </div>
+
+                            <button type="submit" id="btnSave" class="btn btn-sm btn-primary m-r-5 btnM22 ">Save</button>
+
+                            <button type="submit" id="btnSaveNew" class="btn btn-sm btn-success m-r-5 btnM22">Save & New</button>
+
+                            <span id="error" class="hidden"></span>
+                        </fieldset>
+                    }
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+
+    </div>
+    <!-- end row -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        var buttonpressed;
+
+        $("#frmForm").submit(function (e) {
+            e.preventDefault();
+            if (!$('#frmForm').isValid())
+                return;
+              
+            var parcelContainerVM = {};
+            parcelContainerVM.ParcelContainerID = $('#ParcelContainerID').val();
+            parcelContainerVM.ParcelContainerName =$('#ParcelContainerName').val();
+            $('#error').removeClass('hidden');
+            $.ajax({
+                url: '/ParcelContaint/Create',
+                dataType: 'json',
+                data: { "parcelContainerVM": parcelContainerVM },
+                type: 'POST',
+                success: function (resp) {
+                    if (resp.IsError) {
+                        $('#error').removeClass('hidden');
+                        $('#error').html(resp.ErrorMessage);
+                        $("#error").css("color", "red");
+                        $('#error').show();
+                    }
+                    else { 
+                        if (buttonpressed == 'btnSaveNew') {
+                            window.location.href = '/ParcelContaint/Create';
+                        }
+                        else {
+                            // btnSave
+                            window.location.href = '/ParcelContaint/';
+                        }
+
+                    }
+
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+
+
+        $(function () {
+            $('[type="submit"]').on('click', function () {
+                //alert($(this).attr('id'));
+                buttonpressed = $(this).attr('id');
+            });
+        });
+    </script>
+
+}

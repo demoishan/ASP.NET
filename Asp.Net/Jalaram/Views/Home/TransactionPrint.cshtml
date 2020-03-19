@@ -1,0 +1,148 @@
+﻿@model JalaramTravels.ViewModel.TransactionVM
+
+@{
+    ViewBag.Title = "Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@page {
+    size: A5 landscape;
+}
+</style>
+<link href="~/assets/css/invoice-print.min.css" rel="stylesheet" />
+<!-- begin #content -->
+<div id="content" class="content">
+    <h1 class="page-header hidden-print">Transaction    <small>Invoice</small></h1>
+
+    <!-- begin invoice -->
+    <div class="invoice">
+        <div class="invoice-company">
+            <span class="pull-right hidden-print">
+                <a href="~/home/" class="btn btn-sm btn-success m-b-10"><i class="fa fa-home m-r-5"></i> Home</a>
+                <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-success m-b-10"><i class="fa fa-print m-r-5"></i> Print</a>
+            </span>
+            @Model.Cmp.CompnayName
+        </div>
+        <div class="invoice-header">
+            <div class="invoice-from">
+                <table class="table table-invoice">
+                    <tbody>
+                        <tr>
+                            <td>
+                                L.R.NO
+                            </td>
+                            <td> @Model.LRNo</td>
+                        
+                            <td>
+                                Name:
+                            </td>
+                            <td> @Model.ReceiverName</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Station From:
+                            </td>
+                            <td> @Model.ReceiverCity</td>
+                        
+                            <td>
+                                Date:
+                            </td>
+                            <td>
+                                @{
+                                    var tDate = Model.Cmp.PrintDate.HasValue ?
+                                        Model.Cmp.PrintDate.Value.ToString("dd/MM/yyyy") : null;
+                                }
+                                @tDate
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="invoice-content">
+            <div class="table-responsive">
+                <table class="table table-invoice table-bordered">
+                    <tbody>
+                        <tr>
+                            <td>
+                                No Of Parcel:<br />
+                            </td>
+                            <td> @Model.NoOfParcel</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Mode<br />
+                            </td>
+                            <td> @Model.PayTypeString</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Damarage:<br />
+                            </td>
+                            <td> @Model.Damrage </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Hamali:<br />
+                            </td>
+                            <td> @Model.Hamali</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Amount:<br />
+                            </td>
+                            <td> @Model.FinalAmount</td>
+                        </tr>
+                        @*<tr>
+                                <td>
+                                    Total:<br />
+                                </td>
+                                <td> 2</td>
+                            </tr>*@
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="invoice-price">
+                @*<div class="invoice-price-left">
+                        <div class="invoice-price-row">
+                            <div class="sub-price">
+                                <small>SUBTOTAL</small>
+                                $4,500.00
+                            </div>
+                            <div class="sub-price">
+                                <i class="fa fa-plus"></i>
+                            </div>
+                            <div class="sub-price">
+                                <small>PAYPAL FEE (5.4%)</small>
+                                $108.00
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="invoice-price-right" style="border:none">
+                    <small>Sing :</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end invoice -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script>
+        $(function () {
+
+        })
+        $(document).ready(function () {
+
+            //to Hide process when print
+            $('.pace-progress').addClass('hidden-print');
+            $('.pace-activity').addClass('hidden-print');
+            $('.pace pace-active').addClass('hidden-print');
+        })
+    </script>
+
+
+}

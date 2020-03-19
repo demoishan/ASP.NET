@@ -1,0 +1,169 @@
+﻿@model JalaramTravels.ViewModel.UploadVM
+@{
+    ViewBag.Title = "UploadFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+    
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Upload <small>Excel file</small></h1>
+    <!-- end page-header -->
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+            </div>
+            <h4 class="panel-title">Excel File Upload</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <button type="button" class="btn btn-warning" style="float: right;" id="downloadtemplate" >Download Template</button>
+            </div>
+            
+            @using (Html.BeginForm("UploadFilesPost", "Home", FormMethod.Post, new { @id = "frmUpload", enctype = "multipart/form-data" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <fieldset>
+                    <legend>Enter Details</legend>
+                    <div class="row">
+                        
+                        <div class="col-md-3">
+                            <div class="form-group ">
+                                <label for="Phone">Bus</label>
+                                <br />
+                               @Html.DropDownListFor(m => m.BusID, Model.BusList, "-- Select Bus --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlBus" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 ">
+                            <div class="form-group">
+                                <label >City(From)</label>
+                                <br />
+                                @Html.DropDownListFor(m => m.SenderCityID, Model.SenderCityList, "-- Select From City --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlSenderCity" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">Transaction Date</label>
+                               @{
+                                   var TransactionDate = Model.TransactionDate.HasValue ?
+                                       Model.TransactionDate.Value.ToString("dd/MM/yyyy") : null;
+                            }
+                                @Html.TextBoxFor(m => @TransactionDate, new
+                           {
+                               @id = "TransactionDate",
+                               @class = "form-control datepicker1",
+                               @data_validation = "required",
+                               @placeholder = "Transaction Date"
+                           })
+                            </div>
+                        </div>
+
+                        @*<div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">Drive Name</label>
+
+                                @Html.TextBoxFor(m => m.DriverName, new
+                           {
+                               @id = "DriverName",
+                               @class = "form-control",
+                               @maxlength = "20",
+                               @data_validation = "required",
+                               @placeholder = "Driver Name"
+                           })
+                            </div>
+                        </div>*@
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">Select File</label>
+                                <input type="file" name="fileUpload" id="fileUpload" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <button type="submit" onclick="return validateForm()" class="btn btn-sm btn-primary m-r-5">Submit</button>
+                </fieldset>
+            }
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+
+<script type="text/javascript">
+    function validateForm() {
+
+        var ddlBus = $('#ddlBus').val();
+        if (ddlBus == 0) {
+            $.toast({
+                heading: 'error',
+                text: 'Please Select Bus.',
+                showHideTransition: 'fade',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return false;
+        }
+
+        var ddlSenderCity = $('#ddlSenderCity').val();
+        if (ddlSenderCity == 0) {
+            $.toast({
+                heading: 'error',
+                text: 'Please Select From City.',
+                showHideTransition: 'fade',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return false;
+        }
+
+        var TransactionDate = $('#TransactionDate').val();
+        if (TransactionDate == null || TransactionDate == "") {
+            $.toast({
+                heading: 'error',
+                text: 'Please select Transaction Date.',
+                showHideTransition: 'fade',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return false;
+        }
+
+        //var DriverName = $('#DriverName').val();
+        //if (DriverName == null || DriverName == "") {
+        //    $.toast({
+        //        heading: 'error',
+        //        text: 'Please enter Driver Name.',
+        //        showHideTransition: 'fade',
+        //        position: 'top-right',
+        //        icon: 'error'
+        //    })
+        //    return false;
+        //}
+
+        if ($('#fileUpload').get(0).files.length === 0) {
+            console.log("No files selected.");
+            $.toast({
+                heading: 'error',
+                text: 'No files selected.',
+                showHideTransition: 'fade',
+                position: 'top-right',
+                icon: 'error'
+            })
+            return false;
+        }
+        return true;
+    }
+    $(document).on('click', '#downloadtemplate', function () {
+        window.location = '/Home/DownloadTemplate';
+    });
+</script>
+}

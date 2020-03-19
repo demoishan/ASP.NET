@@ -1,0 +1,111 @@
+﻿@model JalaramTravels.ViewModel.InTransitCharges
+
+@{
+    ViewBag.Title = "Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@page {
+        size: A4 portrait;
+    }
+</style>
+<link href="~/assets/css/invoice-print.min.css" rel="stylesheet" />
+<!-- begin #content -->
+<div id="content" class="content">
+    <h1 class="page-header hidden-print">DoorService  <small>Print</small></h1>
+
+    <!-- begin invoice -->
+    <div class="invoice">
+        <div class="invoice-company">
+            <span class="pull-right hidden-print">
+                <a href="~/home/" class="btn btn-sm btn-success m-b-10"><i class="fa fa-home m-r-5"></i> Home</a>
+                <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-success m-b-10"><i class="fa fa-print m-r-5"></i> Print</a>
+            </span>
+            @Model.Cmp.CompnayName
+        </div>
+        <div class="invoice-header">
+                   @{
+                       var tDate = Model.Cmp.PrintDate.HasValue ?
+                           Model.Cmp.PrintDate.Value.ToString("dd/MM/yyyy") : null;
+                   }
+
+                   @Model.ReportHeder
+                   Date:  @tDate
+        </div>
+        <div class="invoice-content">
+            <div class="">      
+                <table class="table table-invoice table-bordered">
+                    <thead>
+                        <tr>
+                            <th>LRNo</th>
+                            <th>N.O.P</th>
+                            <th>Receiver Name & No:</th>
+                            <th>Mode</th>
+                            <th>Amount</th>
+                            <th>Damrage</th>
+                            <th>Hamali</th>
+                            <th>Total</th>
+                            <th>Sign Of Recevier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.inTransitChargesDetails)
+                        {
+
+                            <tr>
+                                
+                                <td> @item.LRNo</td>
+ 
+                                <td> @item.NoOfParcel</td>
+                                 
+                                <td> @item.ReceiverName  @item.ReceiverNumber</td>
+
+                                <td> @item.PayTypeString</td>
+                                 
+                                <td> @item.Amount</td>
+ 
+                                <td> @item.Damrage</td>
+                                
+                                <td> @item.Hamali</td>
+                              
+                                <td> @item.Total</td>
+                                <td> </td>
+                            </tr>
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="invoice-price">
+                <div class="invoice-price-left">
+                     
+                </div>
+                <div class="invoice-price-right">
+                    Total: @Model.GrandTotal
+                </div>
+            </div>
+           
+        </div>
+    </div>
+    <!-- end invoice -->
+
+</div>
+<!-- end #content -->
+
+@section scripts {
+    <script>
+        $(function () {
+
+        })
+        $(document).ready(function () {
+
+            //to Hide process when print
+            $('.pace-progress').addClass('hidden-print');
+            $('.pace-activity').addClass('hidden-print');
+            $('.pace pace-active').addClass('hidden-print');
+        })
+    </script>
+
+
+}

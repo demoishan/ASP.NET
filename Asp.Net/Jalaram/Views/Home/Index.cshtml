@@ -1,0 +1,141 @@
+﻿@model JalaramTravels.ViewModel.DashboardVM
+    @{
+    ViewBag.Title = "Home Page";
+}
+<!-- begin #content -->
+<div id="content" class="content">
+    <!-- begin breadcrumb -->
+     
+    <!-- end breadcrumb -->
+    <!-- begin page-header -->
+    <h1 class="page-header">Dashboard <small>header small text goes here...</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="row">
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-green">
+                    <div class="stats-icon"><i class="fa fa-desktop"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Bus</h4>
+                        <p>@Model.TotalBus</p>
+                    </div>
+                   
+                </div>
+            </div>
+            <!-- end col-3 -->
+
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-purple">
+                    <div class="stats-icon"><i class="fa fa-users"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Customers</h4>
+                        <p>@Model.TotalCustomer</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col-3 -->
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-blue">
+                    <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Parcel (Current Month)</h4>
+                        <p>@Model.TotalParcel</p>
+                    </div>
+                    
+                </div>
+            </div>
+            <!-- end col-3 -->
+           
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-red">
+                    <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+                    <div class="stats-info">
+                        <h4>Total ToPay Amount</h4>
+                        <p>@Model.TotalTopay</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-3 -->
+
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-green">
+                    <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Paid Amount</h4>
+                        <p>@Model.TotalPaid</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-3 -->
+
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-purple">
+                    <div class="stats-icon"><i class="fa fa-users"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Delivered</h4>
+                        <p>@Model.TotalDelivered</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col-3 -->
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-blue">
+                    <div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+                    <div class="stats-info">
+                        <h4>Total Undelivered</h4>
+                        <p>@Model.TotalUndelivered</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- end col-3 -->
+
+            <!-- begin col-3 -->
+            <div class="col-md-3 col-sm-6">
+                <div class="widget widget-stats bg-red">
+                    <div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+                    <div class="stats-info">
+                        <h4>Total InTransit</h4>
+                        <p>@Model.TotalInTransit</p>
+                    </div>
+                </div>
+            </div>
+            <!-- end col-3 -->
+        </div>
+    </div>
+
+    <div class="panel panel-inverse" data-sortable-id="index-8">
+        <div class="panel-heading">
+            <div class="panel-heading-btn">
+              
+            </div>
+            <h4 class="panel-title">Customer (Not come last 2 month)</h4>
+        </div>
+        <div class="panel-body p-0">
+            <ul class="todolist">
+                <li>
+                    @foreach (var item in Model.CustomerList)
+                    {
+                        <a href="javascript:;" class="todolist-container" data-click="todolist">
+                            <div class="todolist-title"> @item.CustomerName </div>
+                            <div class="todolist-title"> @item.CustomerNumber </div>
+                        </a>
+                    }
+                   
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+<!-- end #content -->

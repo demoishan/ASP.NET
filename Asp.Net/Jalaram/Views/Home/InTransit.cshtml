@@ -1,0 +1,263 @@
+﻿@model JalaramTravels.ViewModel.InTransitVM
+
+@{
+    ViewBag.Title = "InTransit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content" class="content">
+    <!-- begin page-header -->
+    <h1 class="page-header">In Transit<small> Parcels</small></h1>
+    <!-- end page-header -->
+    <!-- begin row -->
+    <div class="row">
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+
+                    </div>
+                    <h4 class="panel-title">List</h4>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="control-label">Select PickUpBoy</label>
+                                <br />
+                                @Html.DropDownListFor(m => m.PickUpBoyID, Model.PickUpBoyList, "-- Select Boy --", new { @class = " selectpicker", @data_size = "1000", @data_live_search = "true", @id = "ddlTempo" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone">PickUpDate Date</label>
+                                @{
+                                    var PickUpDate = Model.PickUpDate.HasValue ?
+                                        Model.PickUpDate.Value.ToString("dd/MM/yyyy") : null;
+                                }
+                                @Html.TextBoxFor(m => @PickUpDate, new
+                           {
+                               @id = "PickUpDate",
+                               @class = "form-control datepicker1",
+                               @placeholder = "PickUp Date Date"
+                           })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <button type="button" id="btnSearch" class="btn btn-sm btn-primary m-r-5 btnM22">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="data-table" class="table table-striped table-bordered nowrap" width="100%">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" name="showContact" class="chk" id="checkAll">Select All </th>
+                                    <th>Sr.</th>
+                                    <th>Tr. Date</th>
+                                    <th>LRNo</th>
+                                    <th>NOP</th>
+                                    <th>To</th>
+                                    <th>ToNumber</th>
+                                    <th>PickUpDate</th>
+                                    <th>PickUpBoy</th>
+                                    <th>PickCreateBy</th>
+                                    <th>From</th>
+                                    <th>Bus Name</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{int i = 1;}
+                                @if (Model.TransactionDetailList != null)
+                                {
+                                    foreach (var item in Model.TransactionDetailList)
+                                    {
+
+                                        <tr class="odd gradeX">
+                                            <td class="TransactionDetailID">
+
+                                                @*<a href="@Url.Content("~/Home/Transaction?ID=" + item.TransactionDetailID)">
+                                                        <i class="fa fa-pencil" data-toggle="tooltip" title="View" style="color:darkgreen"></i>
+                                                    </a>*@
+
+                                                <button type="button" class="btn btn-warning btn-icon btn-circle pop btnEdit" value="@item.TransactionDetailID">
+                                                    <i class="fa fa-pencil"></i>
+                                                </button>
+                                                @Html.HiddenFor(m => item.TransactionDetailID, new { @id = "TransactionDetailID" })
+                                                <input type="checkbox" name="chkTransactionDetailID" value="@item.TransactionDetailID" class="chk btn btn-warning btn-icon btn-circle" id="checkId">
+                                            </td>
+                                            <td class="">
+                                                @i
+                                            </td>
+                                            <td>@item.TransactionDateS</td>
+                                            <td>@item.LRNo</td>
+                                            <td>@item.NoOfParcel</td>
+                                            <td>@item.ReceiverName</td>
+                                            <td>@item.ReceiverNumber</td>
+                                            <td>@item.PickUpDateS</td>
+                                            <td>@item.PickUpBoy</td>
+                                            <td>@item.PickUpCreateBy</td>
+                                            <td>@item.SenderName</td>
+                                            <td>@item.BusName</td>
+
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        @*<div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="control-label">Select Delivery</label>
+                                    @Html.EnumDropDownListFor(
+                                        m => Model.DeliverdStatus,
+                                        "Select Delivery",
+                                        new { @class = "form-control", @id = "DeliverdStatus" })
+                                </div>
+                            </div>*@
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="Phone"></label>
+                                <button type="button" id="btnDelivery" class="btn btn-sm btn-primary m-r-5 btnM22">Delivered Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- end panel -->
+        </div>
+    </div>
+    <!-- end row -->
+</div>
+
+@section scripts {
+    <script type="text/javascript">
+        var model = @Html.Raw(Json.Encode(Model));
+        $("#checkAll").click(function(){
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+        $('#btnDelivery').click(function () {
+
+            var favorite = [];
+            $.each($("input[name='chkTransactionDetailID']:checked"), function(){
+                favorite.push($(this).val());
+            });
+            if (favorite.length === 0) {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please at least one Parcel.)',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return;
+            }
+
+            //var DeliverdID= $('#DeliverdStatus').val();
+            //if (DeliverdID ==0) {
+            //    $.toast({
+            //        heading: 'error',
+            //        text: 'Please Select DeliverdStatus',
+            //        showHideTransition: 'fade',
+            //        position: 'top-right',
+            //        icon: 'error'
+            //    })
+            //    return;
+            //}
+
+            $.ajax({
+                url: '/Home/Delivery',
+                dataType: 'json',
+                //data: { "Ids": favorite,"dStatus" : DeliverdID },
+                data: { "Ids": favorite },
+                type: 'POST',
+                success: function (resp) {
+                    window.location.href = '/Home/InTransit/';
+                },
+                error: function (req, status, err) {
+                }
+            });
+        });
+
+        $('#btnSearch').click(function () {
+            var ddlTempo = $('#ddlTempo').val();
+            var PickUpDate = $('#PickUpDate').val();
+            if (PickUpDate == null || PickUpDate == "") {
+                $.toast({
+                    heading: 'error',
+                    text: 'Please select PickUp Date.',
+                    showHideTransition: 'fade',
+                    position: 'top-right',
+                    icon: 'error'
+                })
+                return false;
+            }
+
+            var TransactionDetailFiler={};
+            //TransactionDetailFiler.TransactionDate=TransactionDate;
+            //TransactionDetailFiler.BusID=ddlBus;
+            TransactionDetailFiler.PickUpBoyID=ddlTempo;
+            TransactionDetailFiler.PickUpDate=PickUpDate;
+            TransactionDetailFiler.PickUpDateEnd=PickUpDate;
+
+
+            $("#data-table > tbody").html("");
+            $.ajax({
+                url: '/Home/InTransitFilter',
+                dataType: 'json',
+                data: { "transactionDetailFiler": TransactionDetailFiler },
+                type: 'POST',
+                success: function (resp) {
+                    //$('#data-table').dataTable().fnClearTable();
+                    var table = $('#data-table').DataTable();
+                    table.clear();
+
+                    var dataTable = $('#data-table').DataTable();
+
+                    $.each(resp, function (i, val) {
+                        //var chkrow='<a href="/Home/Transaction?ID='+ val.TransactionDetailID+'"> <i class="fa fa-pencil" data-toggle="tooltip" title="View" style="color:darkgreen"></i></a>      <input type="checkbox" name="chkTransactionDetailID" value="'+val.TransactionDetailID+'" class="chk" id="checkId"/> ';
+                        var editlink=' <button type="button" class="btn btn-warning btn-icon btn-circle pop btnEdit " value='+ val.TransactionDetailID+'> <i class="fa fa-pencil"></i> </button>';
+                        editlink = editlink + '<input id="TransactionDetailID" name="item.TransactionDetailID" type="hidden" value="'+val.TransactionDetailID+'"> <input type="checkbox" name="chkTransactionDetailID" value="'+val.TransactionDetailID+'" class="chk btn btn-warning btn-icon btn-circle" id="checkId"/>';
+
+                        dataTable.row.add([editlink,i+1,val.TransactionDateS,val.LRNo,val.NoOfParcel,val.ReceiverName,val.ReceiverNumber,val.PickUpDateS,val.PickUpBoy,val.PickUpCreateBy ,val.SenderName,val.BusName]).draw();
+                    });
+                    $('#data-table td:first-child').addClass('TransactionDetailID');
+                },
+                error: function (req, status, err) {
+                }
+            });
+
+        });
+
+        $(document).ready(function() {
+            $('#data-table tr').click(function(event) {
+                if (event.target.type !== 'checkbox') {
+                    $(':checkbox', this).trigger('click');
+                }
+            });
+        });
+
+        $(document).on('click', '.btnEdit', function(){
+            var TransactionDetailID = $(this).parents().closest('tr').find('.TransactionDetailID').find('#TransactionDetailID').val();
+            window.location.href = 'Transaction/'+TransactionDetailID;
+        });
+
+       
+    </script>
+}
