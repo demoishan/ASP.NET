@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AuthUsingJWT.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -30,8 +33,13 @@ namespace AuthUsingJWT
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+           .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -44,6 +52,18 @@ namespace AuthUsingJWT
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+
+
+            //Configer All Roles and Policy
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireRole("Admin", "SuperAdmin"));
+                //options.AddPolicy("SuperAdmin", policy => policy.RequireRole("SuperAdmin"));
+                options.AddPolicy("User", policy => policy.RequireRole("User"));
+                options.AddPolicy("RequireAdministratorRole", policy => policy.RequireRole("Administrator", "PowerUser", "Tester"));
+                options.AddPolicy("RequireDBARole", policy => policy.RequireRole("DBA", "DBA2", "User"));
+            });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -58,9 +78,10 @@ namespace AuthUsingJWT
             {
                 app.UseHsts();
             }
+            
+            app.UseAuthentication();
             // Authorization Middleware
-            app.UseMiddleware<AuthenticationMiddleware>();
-            //app.UseAuthentication();
+            //app.UseMiddleware<AuthenticationMiddleware>();  //No Needed
             app.UseHttpsRedirection();
             app.UseMvc();
         }
