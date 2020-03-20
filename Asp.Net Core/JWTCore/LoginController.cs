@@ -34,7 +34,7 @@ namespace AuthUsingJWT.Controllers
             if (user != null)
             {
                 var tokenString = GenerateJSONWebToken(user);
-                response = Ok(new { token = tokenString });
+                response = Ok(new { token = tokenString, userDetails = user });
             }
 
             return response;
@@ -44,14 +44,20 @@ namespace AuthUsingJWT.Controllers
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            List<string> roles = userInfo.Roles.Split(',').ToList();
 
-            var claims = new[] {
+           
+            var claims = new List<Claim>(){
                 new Claim(JwtRegisteredClaimNames.Sub, userInfo.Username),
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.EmailAddress),
                 new Claim("DateOfJoing", userInfo.DateOfJoing.ToString("yyyy-MM-dd")),
-                new Claim("Roles", userInfo.Roles),
+                //new Claim("Roles", userInfo.Roles),                
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+            foreach (var item in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, item));
+            }
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
@@ -68,9 +74,9 @@ namespace AuthUsingJWT.Controllers
 
             //Validate the User Credentials  
             //Demo Purpose, I have Passed HardCoded User Information  
-            if (login.Username == "ishan")
+            if (login != null)
             {
-                user = new UserModel { Username = "Ishan Joshi", EmailAddress = "ishan@gmail.com",Roles= "Admin", DateOfJoing = System.DateTime.Now.AddYears(-15)};
+                user = new UserModel { Username = login.Username, EmailAddress = login.EmailAddress, Roles = login.Roles, DateOfJoing = login.DateOfJoing };
             }
             return user;
         }
