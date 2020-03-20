@@ -1,4 +1,4 @@
-
+https://www.c-sharpcorner.com/article/policy-based-authorization-with-angular-and-asp-net-core-using-jwt/
 https://dotnettutorials.net/lesson/token-based-authentication-web-api/ //Authorise For ASP.NET Framework  (WebAPI)
 https://www.c-sharpcorner.com/article/token-based-authentication-using-web-api-2-owin-and-identity/
 http://www.advancesharp.com/blog/1236/asp-net-web-api-2-owin-oauth-bearer-token-refresh-token-with-custom-database
