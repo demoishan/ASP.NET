@@ -2,7 +2,11 @@ https://www.c-sharpcorner.com/article/policy-based-authorization-with-angular-an
 https://dotnettutorials.net/lesson/token-based-authentication-web-api/ //Authorise For ASP.NET Framework  (WebAPI)
 https://www.c-sharpcorner.com/article/token-based-authentication-using-web-api-2-owin-and-identity/
 http://www.advancesharp.com/blog/1236/asp-net-web-api-2-owin-oauth-bearer-token-refresh-token-with-custom-database
-
+https://www.c-sharpcorner.com/article/policy-based-authorization-with-angular-and-asp-net-core-using-jwt/
+https://github.com/AnkitSharma-007/jwt-authentication-authorization-angular-aspnetcore
+https://medium.com/engineerbabu/angular-authentication-using-jwt-d846c5ce0ac6
+https://github.com/adityatyagi/Angular-JWT-Authentication
+https://blog.angular-university.io/angular-jwt-authentication/
 https://m.youtube.com/watch?list=PL_qizAfcpJ-NtLJsU-OrxcgVuI9BrouaH&index=5&v=77e4cWnusZo
 https://www.google.com/search?q=pagination+in+mvc+c%23&rlz=1CDGOYI_enIN786IN789&oq=pagi&aqs=chrome.1.69i57j69i59j69i60l3j0.2230j0j7&hl=en-GB&sourceid=chrome-mobile&ie=UTF-8
 https://github.com/ungleng/SimpleAjaxPagedListAndSearchMVC5
@@ -18,6 +22,25 @@ https://cloudinary.com/pricing
 https://imgbb.com/plugin
 
 Cloudflare
+ishan1112@gmail.com
+100929924
+————————————————————————————
+End= Start+size -1Or
+Start = ((page -1)*size)+1
+Hdfc SIP
+Ishan_joshi_10
+Babaj alliance
+Ishan1112@gmail.com
+————————————————————————————
+VHealth Favourite place to visit as childVillage
+Favourite actor Disha
+————————————————————————————
+Adani 
+uma1000173859
+Uma@123123123456
+————————————————————————————
+Kotak Kishan
+User name :Kishan1962
 ————————————————————————————
 Movie List:
  Love aaj kal
@@ -46,19 +69,3 @@ https://filmyanju.co/9193/jabariya-jodi-torrent-movie-download-hd-2019/
 https://filmyanju.co/9144/the-family-man-season-01-torrent-download-in-hd-2019-free/
 https://filmyanju.co/8400/arjun-patiala-torrent-punjabi-movie-download-hd-2019/
 
-End= Start+size -1Or
-Start = ((page -1)*size)+1
-Hdfc SIP
-Ishan_joshi_10
-Babaj alliance
-Ishan1112@gmail.com
-————————————————————————————
-VHealth Favourite place to visit as childVillage
-Favourite actor Disha
-————————————————————————————
-Adani 
-uma1000173859
-Uma@123123123456
-————————————————————————————
-Kotak Kishan
-User name :Kishan1962
