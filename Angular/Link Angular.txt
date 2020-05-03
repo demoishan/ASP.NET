@@ -9,3 +9,6 @@ https://alligator.io/angular/lazy-loading/
 https://www.concretepage.com/angular-2/angular-2-4-named-router-outlet-popup-example
 https://medium.com/angular-in-depth/angular-routing-reusing-common-layout-for-pages-from-different-modules-440a23f86b57
 
+
+https://github.com/AnkitSharma-007/BookCart  //Angular Project
+
