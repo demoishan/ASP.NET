@@ -1,9 +1,9 @@
 C#:
 Difference:
--Session and Cookies?
--String and StringBuffer?
--Array and ArrayList
--Array list and Hash table
+-Session VS Cookies VS LocalStorage VS SessionStorage
+-String VS StringBuffer 
+-Array VS ArrayList 
+-Array list VS Hash table or Array List, Hash Table, Sorted List, Stack And Queue
 -Structure and Union? or structure and class?
 -Server.Transfer and Response.Redirect
 -Abstract and Interface
@@ -14,13 +14,14 @@ Difference:
 -constants, read-only and, static?
 -throw and throw ex
 -IEnumerable and IQueryable?
--Enumerable vs Collection vs List
--Is and As
--continue and break
+-Enumerable VS Collection VS List
+-Is VS As
+-Continue and Break
+
 What is Language Integrated Query (LINQ)?
-What is Sealed Class in C#?
-What is value type and reference type?
-What is boxing and unboxing ?
+What is Sealed Class in C#? or How to stop inherintace in C#
+What are the differences between value type and reference type?
+What is boxing and unboxing?
 What Partial class?
 What are generics in C#? //https://www.c-sharpcorner.com/UploadFile/84c85b/using-generics-with-C-Sharp/
 What is IL code, CLR, CTS, GAC & GC?//https://www.geeksforgeeks.org/common-language-runtime-clr-in-c-sharp/
@@ -28,7 +29,6 @@ What is the difference between Virtual method and Abstract method?
 What is the difference between dynamic type variables and object type variables?
 What is deep or shallow copy concept in C#?
 What Are Access Modifiers In C#
-How to stop inherintace in C#
 What is the use of 'using' statement in C#?
 What are extension methods in C#?
 What is the difference between the dispose and finalize methods in C#?
@@ -36,7 +36,6 @@ What is Delegates?Types?
 What is Events?
 What is the Constructor Chaining in C#?
 Give a brief explanation on Thread Pooling in C#
-What do you mean by Constructor Chaining in C#?
 What is cross site scripting (XSS) attacks?
 RenderBody RenderPage?
 RenderPartial,RenderAction, Partial and Action
@@ -48,23 +47,36 @@ design patterns C#?
 What is Hashset in C#?
 How interface is diffrent then class apart from the use of multiple inheritance?
 Tools for code review in C#?
-Can I Create a method with same name in base class with diffrent signature.Do I need to do anything 
+CCan I Create a method with same name in base class with different signature? Do I need to do anything 
 Can function return multiple values in C#?
 What is dynamic type?
-What is internal class in C#?
 Reflector in C#
 Singleton?
 
+MVC:
+What is Partial View in MVC?
+Explain what is the difference between View and Partial View?
+What are HTML helpers in MVC?
+What is TempData in MVC?
+What is Output Caching in MVC?
+What is Bundling and Minification in MVC?
+What is the difference between Temp data, View data, and View Bag?
+What is Data Annotation Validator Attributes in MVC?
+What are the different return types of a controller action method
+Can you create a web application with both webforms and MVC?
+What is the difference between authorization and authentication?
+
 SQL:
 Difference:
--Unioun and Unioun All
--Stored Procedure and Function
--nvarchar and varchar
--Truncate,Delete and Drop
--Primary key and Unique key
--temp table vs temp variable
--RANK() and DENSE_RANK()
--WHERE and HAVING
+-Unioun VS Unioun All
+-Stored Procedure VS Function
+-nvarchar VS varchar
+-Truncate, Delete and Drop
+-Primary key VS Unique key
+-temp table VS temp variable
+-RANK() VS DENSE_RANK()
+-WHERE VS HAVING
+
 What are the different types of indexes?
 Different between cluster index and non clusete index?
 What is trigger and different types of Triggers?
