@@ -55,12 +55,16 @@ How interface is different then class apart from the use of multiple inheritance
 Can I Create a method with same name in base class with different signature? Do I need to do anything?
 C# overridding?
 C# Constructors? Types?
+What is the base class in .NET framework from which all the classes have been developed?
+manage and unmange code example
+Static class create new object or method with new ?
 
 C#
 https://www.guru99.com/c-sharp-interview-questions.html
 https://www.c-sharpcorner.com/UploadFile/puranindia/C-Sharp-interview-questions/
 https://www.softwaretestinghelp.com/c-sharp-interview-questions/
 https://stackoverflow.com/questions/365489/questions-every-good-net-developer-should-be-able-to-answer
+https://www.mygreatlearning.com/blog/c-sharp-interview-questions/
 -------------------------------------------------------------------------------------------
 MVC:
 What are the steps for the execution of an MVC project? 
