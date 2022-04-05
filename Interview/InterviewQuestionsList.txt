@@ -47,7 +47,7 @@ design patterns C#?
 What is Hashset in C#?
 How interface is diffrent then class apart from the use of multiple inheritance?
 Tools for code review in C#?
-CCan I Create a method with same name in base class with different signature? Do I need to do anything 
+Can I Create a method with same name in base class with different signature? Do I need to do anything 
 Can function return multiple values in C#?
 What is dynamic type?
 Reflector in C#
@@ -78,7 +78,7 @@ Difference:
 -WHERE VS HAVING
 
 What are the different types of indexes?
-Different between cluster index and non clusete index?
+Difference between clustered index and non clustered index?
 What is trigger and different types of Triggers?
 What is Cursor?
 What are Advantages of Stored Procedures?
