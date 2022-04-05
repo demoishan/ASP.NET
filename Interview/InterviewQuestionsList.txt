@@ -1,0 +1,360 @@
+-------------------------------------------------------------------------------------------
+C#:
+-------------------------------------------------------------------------------------------
+Difference:
+-Session VS Cookies VS LocalStorage VS SessionStorage
+-String VS StringBuffer 
+-Array VS ArrayList 
+-Array list VS Hash table or Array List, Hash Table, Sorted List, Stack And Queue
+-Structure and Union? or structure and class?
+-Server.Transfer and Response.Redirect
+-Abstract and Interface
+-WCF and Web service and WebAPI
+-Appsetting and Conncection String
+-Ref and Out 
+-tostring() and covert.tostring() ?
+-constants, read-only and, static?
+-throw and throw ex
+-IEnumerable and IQueryable?
+-Enumerable VS Collection VS List
+-Is VS As
+-Continue and Break
+
+What is Language Integrated Query (LINQ)?
+What is Sealed Class in C#? or How to stop inherintace in C#
+What are the differences between value type and reference type?
+What is boxing and unboxing?
+What Partial class?
+What are generics in C#? //https://www.c-sharpcorner.com/UploadFile/84c85b/using-generics-with-C-Sharp/
+What is IL code, CLR, CTS, GAC & GC?//https://www.geeksforgeeks.org/common-language-runtime-clr-in-c-sharp/
+What is the difference between Virtual method and Abstract method?
+What is the difference between dynamic type variables and object type variables?
+What is deep or shallow copy concept in C#?
+What Are Access Modifiers In C#
+What is the use of 'using' statement in C#?
+What are extension methods in C#?
+What is the difference between the dispose and finalize methods in C#?
+What is Delegates?Types?
+What is Events?
+What is the Constructor Chaining in C#?
+Give a brief explanation on Thread Pooling in C#
+What is cross site scripting (XSS) attacks?
+RenderBody RenderPage?
+RenderPartial,RenderAction, Partial and Action
+What is Remote Validation?
+MVC page life cygle and working
+What does the "volatile" keyword in C# mean?
+SOLID Principles In C#?
+design patterns C#?
+What is Hashset in C#?
+How interface is diffrent then class apart from the use of multiple inheritance?
+Tools for code review in C#?
+Can I Create a method with same name in base class with different signature? Do I need to do anything 
+Can function return multiple values in C#?
+What is dynamic type?
+Reflector in C#
+Reflection in C#
+Singleton?
+What are the types of classes in C#?
+Difference between the Equality Operator (==) and Equals() Method in C#?
+What is a managed and unmanaged code?
+-------------------------------------------------------------------------------------------
+MVC:
+-------------------------------------------------------------------------------------------
+What are the steps for the execution of an MVC project? 
+What is Partial View in MVC?
+Explain what is the difference between View and Partial View?
+What are HTML helpers in MVC?
+Explain what is routing in MVC? What are the three segments for routing important?
+What is Output Caching in MVC?
+What is Bundling and Minification in MVC?
+What is the difference between Temp data, View data, and View Bag?
+What is Data Annotation Validator Attributes in MVC?
+What are the different return types of a controller action method
+Can you create a web application with both webforms and MVC?
+What is the difference between authorization and authentication?
+What do you understand by Model Binding?
+RenderSection RenderBody RenderPage?
+RenderPartial,RenderAction, Partial and Action
+What are different ways of rendering a Partial View in ASP.NET MVC?
+What is Remote Validation?
+MVC page life cygle and working
+What is cross site scripting (XSS) attacks?
+What are ASP.NET MVC Filters and Attributes? What are the Filters in MVC?
+When Exception filters are executed in ASP.NET MVC?
+-------------------------------------------------------------------------------------------
+ASP.NET Core:
+-------------------------------------------------------------------------------------------
+Difference:
+AddTransient, AddScoped and AddSingleton Services Differences //https://stackoverflow.com/questions/38138100/addtransient-addscoped-and-addsingleton-services-differences
+
+https://www.qfles.com/interview-question/asp-net-core-interview-questions
+https://www.chubbydeveloper.com/top-20-asp-net-core-interview-questions/
+
+What are some characteristics of .NET Core?
+What is CTS?
+What is Zero Garbage Collectors?
+Explain a simple GC implementation?
+When does Garbage collection occur?
+What is CoreFx?
+What is unit testing?
+What are Empty migrations?
+Differences Between .net Core and .net Framework?
+What are complex and supporting methods?
+What is FCL?
+What is IGCToCLR interface?
+What is Modularity?
+Defines the types and methods of a class library?
+What are the Fundamental Libraries?
+What are Generate SQL scripts in .Net core?
+Explain the difference between Task and Thread in .NET
+When should we use .NET Core and .NET Standard Class Library project types?
+What are the advantages that you could speak about Web API?
+What is meant by Web API routing?
+Briefly explain exception filters.
+Explain the difference between a class and an object.
+Explain LINQ.
+Explain the difference between the Stack and the Heap.
+What is a delegate in .NET?
+Define encapsulation.
+Is there a difference between ‘debug’ and ‘trace’?
+What’s inheritance?
+Define caching.
+What is a ‘.dll’ file?
+Can you specify access modifiers in an interface?
+What are advantages of Garbage Collection?
+What is UWP App in .Net core?
+What is MSBuild and how it works with .NET Core?
+How does MEF work?
+
+What functionalities are supported by ASP.NET Core?
+What is ASP.NET Core Middleware?
+What is the difference between ASP.NET and ASP.NET Core?
+What is Kestral?
+What are Razor Pages in ASP.NET Core?
+Can ASP.NET Core work with .NET Framework?
+What’s the difference between .NET Core .NET Framework and .NET Standard?
+What is routing in ASP.NET Core?
+How do you enable a session in ASP.NET Core?
+Advantages of ASP.NET Core over ASP.NET
+What is WebListener?
+What is IWebHostEnvironment interface used for?
+What are the Service lifetimes?
+What is wwwroot folder in ASP.NET Core?
+What is the difference between UseIIS & UseIISIntegration?
+What are technologies discontinued in .NET Core?
+What does Configure Services method do in the startup class?
+What is a Self-hosted Web Application?
+What is a .NET Generic Host?
+What is the difference between Pages and Views ?
+
+links:
+https://codingblast.com/asp-net-core-interview-questions/
+https://www.dotnettricks.com/learn/aspnetcore/top-20-asp-net-core-interview-questions-and-answers
+-------------------------------------------------------------------------------------------
+SQL:
+-------------------------------------------------------------------------------------------
+Difference:
+-Unioun VS Unioun All
+-Stored Procedure VS Function
+-nvarchar VS varchar
+-Truncate, Delete and Drop
+-Primary key VS Unique key
+-temp table VS temp variable
+-RANK() VS DENSE_RANK()
+-WHERE VS HAVING
+
+What are the different types of indexes?
+Difference between clustered index and non clustered index? Which is faster Cluster or non cluster?
+What is trigger and different types of Triggers?
+What is Cursor?
+What are Advantages of Stored Procedures?
+What is a join?types?
+What is Self-Join and Cross-Join?
+What are Constraints in SQL?
+Types of sql functions
+What are all types of user defined functions?
+What is CTE?
+What is Primary Key,Foreign Key,Union Key
+What are aggregate and scalar functions?
+What are SQL Injections? And How to Prevent SQL Injection Attacks?
+What are the type of locks?
+What is ACID?
+Offset fetch
+What is set Nocount ON?
+SQL query execution order
+Improve performance of SQL
+To display data what will you do to bring milliouncs of data in SQL database table
+Execution plan in SQL
+Find 2nd or 4th Highest salary
+Find Sum of salry
+Uplicate recored 
+Find new add reccored from 2 same table(backup)
+Last recoreds with out ID.
+-------------------------------------------------------------------------------------------
+OPPS:
+-------------------------------------------------------------------------------------------
+What is OOPS & Principal?
+What is Inheritance,Abstract
+What are type of inherence?
+What is polymorphicm? Type Of polymorphicm in C#
+What is Polymorphism, overloading, overriding and virtual?
+What is different difference between compile time polymorphism and runtime polymorphism 
+OR
+ What is different between overloading and overriding
+OR
+ What is Early Binding & Late Binding
+What is diffrent btween interface and inherintace
+What is normalisation? dinomaization?
+-------------------------------------------------------------------------------------------
+Useful GitHub links:
+https://github.com/NilavPatel/
+https://github.com/veliyat
+https://github.com/cornflourblue   //For Angular and react - jasonwatmore.com
+-------------------------------------------------------------------------------------------
+C#
+https://www.guru99.com/c-sharp-interview-questions.html
+https://www.c-sharpcorner.com/UploadFile/puranindia/C-Sharp-interview-questions/
+https://www.softwaretestinghelp.com/c-sharp-interview-questions/
+https://stackoverflow.com/questions/365489/questions-every-good-net-developer-should-be-able-to-answer
+https://www.mygreatlearning.com/blog/c-sharp-interview-questions/
+-------------------------------------------------------------------------------------------
+SQL:
+https://www.guru99.com/sql-interview-questions-answers.html
+https://www.interviewbit.com/sql-interview-questions/
+https://www.edureka.co/blog/interview-questions/sql-interview-questions
+https://www.toptal.com/sql/interview-questions
+https://github.com/kansiris/SQL-interview-questions
+https://www.sqlshack.com/what-is-the-difference-between-clustered-and-non-clustered-indexes-in-sql-server/
+https://www.complexsql.com/indexing-in-sql/
+-------------------------------------------------------------------------------------------
+SQL Topik:
+DISTINCT 
+WHERE Clause
+AND, OR and NOT Operators
+ORDER BY
+NULL Values
+TOP, LIMIT, FETCH FIRST or ROWNUM Clause
+MIN() and MAX() Functions
+COUNT(), AVG() and SUM() Functions
+LIKE Operator
+Wildcards
+IN Operator
+BETWEEN Operator
+Aliases
+Joins
+INNER JOIN
+LEFT JOIN
+RIGHT JOIN
+FULL OUTER JOIN 
+Self Join
+CROSS JOIN
+UNION and UNION ALL Operator
+GROUP BY Statement
+HAVING Clause
+EXISTS Operator
+ANY and ALL Operators
+CASE Statement
+NULL Functions
+Cursor in SQL
+CTE
+TEMP table Tmp variable and global table
+Types of Indexes in sql  
+-------------------------------------------------------------------------------------------
+Asp.net Core:
+https://codingblast.com/asp-net-core-interview-questions/
+https://www.dotnettricks.com/learn/aspnetcore/top-20-asp-net-core-interview-questions-and-answers
+https://www.qfles.com/interview-question/asp-net-core-interview-questions
+-------------------------------------------------------------------------------------------
+Use Full link For React
+https://www.tutorialspoint.com/reactjs/reactjs_router.htm
+https://www.freecodecamp.org/news/react-router-in-5-minutes/ //For React V5 Routing
+https://scrimba.com/c/cNq8MzCr
+https://pusher.com/tutorials/consume-restful-api-react
+https://github.com/fisayoafolayan/consuming-restful-api-in-react/blob/master/src/App.js
+https://www.botreetechnologies.com/blog/react-with-redux-step-by-step-with-tasky-app
+
+https://medium.com/@everdimension/how-to-handle-forms-with-just-react-ac066c48bd4f
+https://jasonwatmore.com/post/2018/09/11/react-basic-http-authentication-tutorial-example
+-------------------------------------------------------------------------------------------
+Angular:
+What is the difference between *ngIf and [hidden]?
+how to pass data between components in angular
+
+https://www.interviewbit.com/angular-interview-questions/
+https://github.com/sudheerj/angular-interview-questions
+-------------------------------------------------------------------------------------------
+WEBAPI:
+https://www.interviewbit.com/web-api-interview-questions/
+https://www.dotnettricks.com/learn/webapi/top-20-web-api-interview-questions-answers
+-------------------------------------------------------------------------------------------
+//Extra
+https://github.com/csotomon/Angular2-AdminLTE/pulls
+https://gogetinfo.files.wordpress.com
+-------------------------------------------------------------------------------------------
+https://www.interviewbit.com/javascript-interview-questions
+1. What are the different data types present in javascript?
+2. Explain Hoisting in javascript.
+3. Difference between “==” and “===” operators.
+4. Explain Implicit Type Coercion in javascript.
+5. Is javascript a statically typed or a dynamically typed language?
+6. What is NaN property in JavaScript?
+7. Explain passed by value and passed by reference.
+8. What is an Immediately Invoked Function in javascript?
+9. Explain Higher Order Functions in javascript.
+10. Explain “this” keyword.
+11. Explain call(), apply() and, bind() methods.
+12. What is Currying in javascript?
+13. Explain Scope and Scope Chain in javascript.
+14. Explain Closures in JavaScript.
+15. What are object prototypes?
+16. What are callbacks?
+17. What is memoization?
+18. What is recursion in a programming language?
+19. What is the use of a constructor function in javascript?
+20. What is DOM?
+Advanced js interview questions:
+21. What are arrow functions?
+22. Differences between declaring variables using var, let and const.
+23. What is the rest parameter and spread operator?
+24. What is the use of promises in javascript?
+25. What are classes in javascript?
+26. What are generator functions?
+27. Explain WeakSet in javascript.
+28. Explain WeakMap in javascript.
+29. What is Object Destructuring?
+30. What is a Temporal Dead Zone?
+https://github.com/sudheerj/javascript-interview-questions 
+-------------------------------------------------------------------------------------------
+https://www.interviewbit.com/jquery-interview-questions/#what-is-jquery
+difference between async and defer
+difference between == and ===
+difference between document ready and window loadn
+1. What is Jquery?
+2. What are the advantages of jQuery?
+3. Is jQuery a JavaScript or JSON library file?
+4. Does jQuery work for both HTML and XML documents?
+5. What are the jQuery functions used to provide effects?
+6. What is the use of css() method in jQuery?
+7. What are events in jQuery?
+8. What is the significance of jQuery.length?
+9. What is jQuery click event?
+10. Can you tell something about jQuery each() method?
+11. What is the difference between javascript and jquery?
+12. What are the selectors in jQuery? How many types of selectors in jQuery?
+13. Explain how CSS classes can be manipulated in HTML using jQuery.
+jQuery Coding Problems
+14. How to perform jQuery AJAX requests?
+15. What does the following code do?
+16. Consider the following code that exists in HTML
+17. What does the following code do?
+18. Can you explain the difference between jQuery.get() and jQuery.ajax()?
+19. Which of the two lines of code below is more efficient and why?
+20. Can you write a jQuery code selector that needs to be used for querying all elements whose ID ends with string “IB”?
+21. Explain the .promise() method in jQuery.
+22. Consider the below code snippet and assume that there are 5 <div> elements on the page. What is the difference between the start and end times displayed?
+23. Can you tell the difference between prop() and attr()?
+
+https://github.com/learning-zone/javascript-interview-questions
+https://github.com/khan4019/front-end-Interview-Questions
+https://github.com/khan4019/angular-interview-questions
