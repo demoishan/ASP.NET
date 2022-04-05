@@ -1,0 +1,10 @@
+https://www.c-sharpcorner.com/ebooks/introduction-to-csharp_8
+https://www.c-sharpcorner.com/ebooks/azure-devops-complete-ci-cd-pipeline
+https://www.c-sharpcorner.com/ebooks/angular-7-for-beginners
+https://www.c-sharpcorner.com/ebooks/crack-your-angular-interview
+https://www.c-sharpcorner.com/ebooks/the-developer-s-guide-to-microsoft-azure-second-edition
+https://www.c-sharpcorner.com/ebooks/javascript-object-model-ecma-programming-in-sharepoint-2016-and-office_365
+https://www.c-sharpcorner.com/ebooks/beginning-c-sharp-object-oriented-programming
+https://www.c-sharpcorner.com/ebooks/sql-queries-for-beginners
+https://www.c-sharpcorner.com/ebooks/microsoft-azure-step-by-step-guide
+https://www.c-sharpcorner.com/ebooks/net-interview-questions-and-answer-practical-implementatio
