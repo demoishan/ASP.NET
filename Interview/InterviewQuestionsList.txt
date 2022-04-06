@@ -21,7 +21,6 @@ Difference:
 -Continue and Break
 
 What is Language Integrated Query (LINQ)?
-What is Sealed Class in C#? or How to stop inherintace in C#
 What are the differences between value type and reference type?
 What is boxing and unboxing?
 What Partial class?
@@ -29,6 +28,7 @@ What are generics in C#? //https://www.c-sharpcorner.com/UploadFile/84c85b/using
 What is IL code, CLR, CTS, GAC & GC?//https://www.geeksforgeeks.org/common-language-runtime-clr-in-c-sharp/
 What is the difference between Virtual method and Abstract method?
 What is the difference between dynamic type variables and object type variables?
+What is Sealed Class in C#? or How to stop inherintace in C#
 What is deep or shallow copy concept in C#?
 What Are Access Modifiers In C#
 What is the use of 'using' statement in C#?
@@ -55,7 +55,7 @@ What is dynamic type?
 Reflector in C#
 Reflection in C#
 Singleton?
-What are the types of classes in C#?
+What are the types of classes in C#? =>Partial,Sealed,Static,Abstract 
 Difference between the Equality Operator (==) and Equals() Method in C#?
 What is a managed and unmanaged code?
 -------------------------------------------------------------------------------------------
@@ -89,7 +89,9 @@ Difference:
 AddTransient, AddScoped and AddSingleton Services Differences //https://stackoverflow.com/questions/38138100/addtransient-addscoped-and-addsingleton-services-differences
 
 https://www.qfles.com/interview-question/asp-net-core-interview-questions
-https://www.chubbydeveloper.com/top-20-asp-net-core-interview-questions/
+https://www.chubbydeveloper.com/top-20-asp-net-core-interview-questions
+https://codingblast.com/asp-net-core-interview-questions
+https://www.dotnettricks.com/learn/aspnetcore/top-20-asp-net-core-interview-questions-and-answers
 
 What are some characteristics of .NET Core?
 What is CTS?
@@ -147,10 +149,6 @@ What does Configure Services method do in the startup class?
 What is a Self-hosted Web Application?
 What is a .NET Generic Host?
 What is the difference between Pages and Views ?
-
-links:
-https://codingblast.com/asp-net-core-interview-questions/
-https://www.dotnettricks.com/learn/aspnetcore/top-20-asp-net-core-interview-questions-and-answers
 -------------------------------------------------------------------------------------------
 SQL:
 -------------------------------------------------------------------------------------------
@@ -260,11 +258,6 @@ Cursor in SQL
 CTE
 TEMP table Tmp variable and global table
 Types of Indexes in sql  
--------------------------------------------------------------------------------------------
-Asp.net Core:
-https://codingblast.com/asp-net-core-interview-questions/
-https://www.dotnettricks.com/learn/aspnetcore/top-20-asp-net-core-interview-questions-and-answers
-https://www.qfles.com/interview-question/asp-net-core-interview-questions
 -------------------------------------------------------------------------------------------
 Use Full link For React
 https://www.tutorialspoint.com/reactjs/reactjs_router.htm
